@@ -1,0 +1,13 @@
+@import url('https://cdnjs.cloudflare.com/ajax/libs/react-datepicker/2.8.0/react-datepicker.css');
+
+.react-datepicker__input-container input {
+   width: 375px;
+   height: 46px;
+   border-left: 0px;
+   border-right: 0px;
+   border-top: 0.5px solid;
+   border-bottom: 0.5px solid;
+   border-color: #d8d8d8;
+   font: 15px "Century Gothic", Futura, sans-serif;
+   padding-left: 14px;
+}
