@@ -1,21 +1,21 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {Scrollbars} from 'react-custom-scrollbars';
-import {Label} from '../components';
-import {TextInput} from '../components';
-import {PlainText} from '../components';
-import {OptionForm} from '../components';
-import {Option} from '../components';
+import {Label} from '../components/components';
+import {TextInput} from '../components/components';
+import {PlainText} from '../components/components';
+import {OptionForm} from '../components/components';
+import {Option} from '../components/components';
 
-import * as continue_button from '../../public/assets/continue.png';
-import * as continue_dark_button from '../../public/assets/continue_dark.png';
+import * as submit_button from '../submit.png';
+import * as submit_dark_button from '../submit_dark.png';
 
 class OptionsPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       options: [],
-      imageURL: continue_button,
+      imageURL: submit_button,
     };
     this.changeLocationSwitch = this.changeLocationSwitch.bind(this);
   }
@@ -50,11 +50,11 @@ class OptionsPage extends React.Component {
             <Scrollbars autoHide style={{ height:"499px" }}>
                 <div class="element">
                     <div class="label">{this.renderLabel("Subject")}</div>
-                    {this.renderPlainText("{From previous page: }Which Restaurant to go this noon?")}
+                    {this.renderPlainText(this.props.location.query.subject)}
                 </div>
                 <div class="element">
                     <div class="label">{this.renderLabel("Polling End Time")}</div>
-                    {this.renderPlainText("{From previous page: }2019-10-23 17:15")}
+                    {this.renderPlainText(this.props.location.query.pollingEndTime.toLocaleString())}
                 </div>
                 <div class="element">
                   <div class="label">{this.renderLabel("Options")}</div>
@@ -62,8 +62,8 @@ class OptionsPage extends React.Component {
                 </div>
             </Scrollbars>
             <div class="bottom">
-            <button onClick="this.handleClick" onMouseDown = {()=> {this.setState({imageURL: continue_dark_button})}}
-                    onMouseUp = {()=> {this.setState({imageURL:continue_button})}}
+            <button onClick="this.handleClick" onMouseDown = {()=> {this.setState({imageURL: submit_dark_button})}}
+                    onMouseUp = {()=> {this.setState({imageURL:submit_button})}}
                     style={{outline:"none", position:"absolute", padding: "0px", left: "8px", bottom:"5px", border:"none"}}>
                 <img src= {this.state.imageURL}  alt="continue" style={{width:"359px", height:"50px"}} />
             </button></div>

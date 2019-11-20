@@ -13,7 +13,7 @@ body {
   /* padding-left: 14px; */
 }
 
-label {
+.key {
   margin-left: 14px;
   color: #979797;
 }
@@ -29,8 +29,8 @@ label {
   border-top: 0.5px solid;
   border-bottom: 0.5px solid;
   padding-left: 14px;
-  display: table-cell;
-  vertical-align: middle;
+  display: flex;
+  align-items: center;
   border-color: #d8d8d8;
   font: 15px "Century Gothic", Futura, sans-serif;
 }
@@ -41,12 +41,12 @@ label {
   background-color: #fff;
   padding-top: 0px;
   padding-bottom: 0px;
+  padding-left: 14px;
   border-left: 0px;
   border-right: 0px;
   border-top: 0.5px solid;
   border-bottom: 0.5px solid;
   margin-top: 3px;
-  padding-left: 14px;
   border-color: #d8d8d8;
   font: 15px "Century Gothic", Futura, sans-serif;
 }
@@ -55,11 +55,19 @@ label {
   margin-top: 25px;
 }
 
-.calendar {
-  background-color: transparent;
-  padding: 0px;
-  margin: 0px;
-  border-width: 0px;
+.option {
+  width: 375px;
+  height: 46px;
+  padding-left: 14px;
+  position: relative;
+  background: #FFFFFF;
+  border-top: 0.5px solid;
+  border-bottom: 0.5px solid;
+  border-color: #d8d8d8;
+  margin-top: -0.5px;
+  margin-bottom:  -0.5px;
+  display: flex;
+  align-items: center;
 }
 
 .bottom {
@@ -104,19 +112,6 @@ a {
   padding-left: 50px;
   border-color: #d8d8d8;
   font: 15px "Century Gothic", Futura, sans-serif;
-}
-
-.add_icon {
-  position: absolute;
-  left:0px;
-  top:6px;
-  height: 30px;
-  width: 30px;
-  background-color: #fff;
-  border-right: 0px;
-  border-top: 0.5px solid;
-  border-bottom: 0.5px solid;
-  border-color: #fff;
 }
 
 *:focus {

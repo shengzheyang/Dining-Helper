@@ -5,3 +5,5 @@ node_modules
 .npm
 *.dat
 public/bundle.js
+*.DS_Store
+package-lock.json

@@ -2,17 +2,18 @@ import React from 'react';
 import Switch from 'react-ios-switch';
 import DatePicker from "react-datepicker";
 
+import "react-datepicker/dist/react-datepicker.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import "./customDatePicker";
-import './index.css';
-//import "react-datepicker/dist/react-datepicker.css";
+import "../css/customDatePicker.css";
+import '../css/index.css';
 
-import * as add_button from '../public/assets/add.png';
+import * as add_button from '../add.png';
+import * as delete_button from '../delete.png';
 
 class Label extends React.Component {
   render() {
     return (
-        <label>{this.props.subject}</label>
+        <label className="key">{this.props.subject}</label>
     );
   }
 }
@@ -108,102 +109,24 @@ class DateTimePicker extends React.Component {
    }
   };
 
+  onDatepickerRef(el) {
+    if (el && el.input)
+     el.input.readOnly = true;
+  }
+
   render() {
    return (
        <DatePicker
          disabled={this.state.disabled}
          selected={this.state.time}
          onChange={this.handleChange}
+         timeIntervals={15}
          showTimeSelect
          placeholderText= {this.props.hint}
          dateFormat="Pp"
+         ref={el => this.onDatepickerRef(el)}
        />
    );
-  }
-}
-
-class OpForm extends React.Component {
-  constructor(props) {
-      super(props);
-      if(this.props.options.length === 0) {
-        this.state = {
-            options: [{"name":"", isCreator: true, isVoted: true}],
-            imageURL: add_button,
-        }
-      }
-      else {
-        this.state = {
-            options: this.props.options,
-            imageURL: add_button,
-        }
-      }
-  }
-
-  handleChange = (e) => {
-      if (["name"].includes(e.target.className) ) {
-        let options = [...this.state.options];
-        options[e.target.dataset.id][e.target.className] = e.target.value;
-        this.setState({ options }, () => console.log(this.state.options));
-      } else {
-        this.setState({ [e.target.name]: e.target.value });
-      }
-  }
-
-  addOption = (e) => {
-      if (this.state.options[this.state.options.length - 1].name === "") {
-        alert("can't add a void option");
-      } else {
-        this.setState((prevState) => ({
-        options: [...prevState.options, {name:"", isCreator: true, isVoted: true}],
-        // Show...
-
-        }));
-      }
-      e.preventDefault()
-  }
-
-  render() {
-      let {options} = this.state
-      return (
-      <form onSubmit={this.addOption} onChange={this.handleChange} >
-          {
-            options.map((val, idx)=> {
-                let OptionId = `Option-${idx}`;
-                if(idx == options.length - 1){
-                  return (
-                    <div key={idx} style={{position:"relative"}}>
-                      <button onClick={this.addOption} className="add_icon"  style={{outline:"none"}}>
-                        <img src= {this.state.imageURL}  alt="Add" style={{width:"30px", height:"30px"}} />
-                      </button>
-                      {/* <label htmlFor={OptionId}>{`Option #${idx + 1}`}</label> */}
-                      <input
-                      type="text"
-                      name={OptionId}
-                      data-id={idx}
-                      id={OptionId}
-                      value={options[idx].name}
-                      className="name"
-                      />
-                    </div>
-                  )
-                } else {
-                  return (
-                    <div key={idx} style={{position:"relative"}}>
-                      <input
-                      type="text"
-                      name={OptionId}
-                      data-id={idx}
-                      id={OptionId}
-                      value={options[idx].name}
-                      className="name"
-                      />
-                    </div>
-                  )
-                }
-            })
-          }
-      </form>
-      )
   }
 }
 
@@ -214,23 +137,39 @@ class Option extends React.Component {
     this.state = {
       content: this.props.content,
       isCreator: this.props.isCreator,
-      isVoted: this.props.isVoted
+      isVoted: this.props.isVoted,
+    }
+  }
+
+  componentDidUpdate(prevProps) {
+    if(this.props.content!== prevProps.content) {
+      this.setState({
+        content: this.props.content,
+        isCreator: this.props.isCreator,
+        isVoted: this.props.isVoted
+      });
     }
   }
 
   render() {
-    const { checked } = this.state.isVoted;
     return(
-      <label>
-        <input type="checkbox" checked = {checked}
+      <div className="option">
+        <input type="checkbox" checked = {this.state.isVoted} style={{width:"24px", height:"24px"}}
           onChange={checked => {
             this.setState({ isVoted: checked });
             this.props.voteOption(this.props.index);
           }}
         />
-        {this.state.content}
-
-      </label>
+        <a className="optionName"><font color="0084ff">{this.state.content}</font></a>
+        {
+          this.state.isCreator ?
+              <button style={{outline:"none", border:"none", background:"transparent", position:"absolute", right:"14px"}}
+                      onClick = {() => {this.props.deleteOption(this.props.index)}}>
+                  <img src= {delete_button}  alt="continue" style={{width:"24px", height:"24px"}} />
+              </button>
+          : null
+        }
+      </div>
     );
   }
 }
@@ -287,10 +226,12 @@ class OptionForm extends React.Component {
 
   render() {
     var options = this.state.options;
+    console.log('options',options);
+
     return(
-      <div>{
+      <div>
+      {
         options.map( (val, index) => {
-          console.log("content:",val.content, index);
           return (
             <Option content = {val.content}
               isCreator = {val.isCreator}
@@ -300,8 +241,13 @@ class OptionForm extends React.Component {
               deleteOption = {this.deleteOption}/>
           );
         })
-      }</div>
-    )
+      }
+      <button style={{outline:"none", border:"none", background:"transparent"}}
+              onClick = {() => {this.addOption()}}>
+          <img src= {add_button}  alt="continue" style={{width:"27px", height:"27px"}} />
+      </button>
+    </div>
+    );
   }
 }
 
