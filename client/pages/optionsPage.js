@@ -8,14 +8,13 @@ import {OptionForm} from '../components/components';
 import {Option} from '../components/components';
 
 import * as submit_button from '../submit.png';
-import * as submit_dark_button from '../submit_dark.png';
 
 class OptionsPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      options: [],
-      imageURL: submit_button,
+      basicInfo: this.props.location.query.basicInfo,
+      options: this.props.location.query.options,
     };
     this.changeLocationSwitch = this.changeLocationSwitch.bind(this);
   }
@@ -36,12 +35,8 @@ class OptionsPage extends React.Component {
       return <PlainText text={text}/>;
   }
 
-  renderOptionForm(options) {
-    return <OptionForm options ={options}/>;
-  }
-
-  renderOption() {
-    return <Option/>
+  renderOptionForm() {
+    return <OptionForm basicInfo={this.state.basicInfo} options ={this.state.options} history={this.props.history}/>;
   }
 
   render() {
@@ -50,11 +45,11 @@ class OptionsPage extends React.Component {
             <Scrollbars autoHide style={{ height:"499px" }}>
                 <div class="element">
                     <div class="label">{this.renderLabel("Subject")}</div>
-                    {this.renderPlainText(this.props.location.query.subject)}
+                    {this.renderPlainText(this.state.basicInfo.subject)}
                 </div>
                 <div class="element">
                     <div class="label">{this.renderLabel("Polling End Time")}</div>
-                    {this.renderPlainText(this.props.location.query.pollingEndTime.toLocaleString())}
+                    {this.renderPlainText(this.state.basicInfo.pollingEndTime.toLocaleString())}
                 </div>
                 <div class="element">
                   <div class="label">{this.renderLabel("Options")}</div>
@@ -62,10 +57,9 @@ class OptionsPage extends React.Component {
                 </div>
             </Scrollbars>
             <div class="bottom">
-            <button onClick="this.handleClick" onMouseDown = {()=> {this.setState({imageURL: submit_dark_button})}}
-                    onMouseUp = {()=> {this.setState({imageURL:submit_button})}}
+            <button onClick="this.handleClick"
                     style={{outline:"none", position:"absolute", padding: "0px", left: "8px", bottom:"5px", border:"none"}}>
-                <img src= {this.state.imageURL}  alt="continue" style={{width:"359px", height:"50px"}} />
+                <img src= {submit_button}  alt="continue" style={{width:"359px", height:"50px"}} />
             </button></div>
 
         </div>

@@ -1,7 +1,6 @@
 import React from 'react';
 import Switch from 'react-ios-switch';
 import DatePicker from "react-datepicker";
-
 import "react-datepicker/dist/react-datepicker.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "../css/customDatePicker.css";
@@ -178,19 +177,8 @@ class OptionForm extends React.Component {
   constructor(props) {
       super(props);
       this.state = {
-        options: [
-          {
-            content: "uci",
-            isCreator: true,
-            isVoted: false
-          },
-          {
-            content: "panda express",
-            isCreator: false,
-            isVoted:true
-          }
-        ],
-        imageURL: add_button,
+        basicInfo: this.props.basicInfo,
+        options: this.props.options,
       }
       this.deleteOption = this.deleteOption.bind(this);
       this.voteOption = this.voteOption.bind(this);
@@ -212,18 +200,6 @@ class OptionForm extends React.Component {
     }
   }
 
-
-  addOption(){
-    var array = [...this.state.options]; // make a separate copy of the array
-    var option = {
-      content: "",
-      isCreator: true,
-      isVoted: false
-    }
-    array.push(option);
-    this.setState({options: array});
-  }
-
   render() {
     var options = this.state.options;
     console.log('options',options);
@@ -243,14 +219,13 @@ class OptionForm extends React.Component {
         })
       }
       <button style={{outline:"none", border:"none", background:"transparent"}}
-              onClick = {() => {this.addOption()}}>
+              onClick = {() => {this.props.history.push({pathname: '/mapPage', query: this.state});} }>
           <img src= {add_button}  alt="continue" style={{width:"27px", height:"27px"}} />
       </button>
     </div>
     );
   }
 }
-
 
 export  {Label};
 export  {TextInput};

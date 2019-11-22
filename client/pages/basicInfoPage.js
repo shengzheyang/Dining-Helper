@@ -7,7 +7,6 @@ import {DateTimePicker} from '../components/components';
 import { Scrollbars } from 'react-custom-scrollbars';
 
 import * as continue_button from '../continue.png';
-import * as continue_dark_button from '../continue_dark.png';
 
 class BasicInfoPage extends React.Component {
   constructor(props) {
@@ -19,10 +18,8 @@ class BasicInfoPage extends React.Component {
         availableTimeFrom: undefined,
         availableTimeTo: undefined,
         isMultipleChoice: false,
-        imageURL: continue_button
       };
       this.changeStateValue = this.changeStateValue.bind(this);
-      // this.handleClick = this.handleClick.bind(this);
   }
 
   changeStateValue(key_value) {
@@ -59,13 +56,6 @@ class BasicInfoPage extends React.Component {
     else
       return false;
   }
-  //
-  // handleClick() {
-  //   if(this.checkIfFieldsNotNull())
-  //     this.props.history.push({pathname: '/optionsPage', query: this.state});
-  //   else
-  //     alert("Please fill all fields!");
-  // }
 
   render() {
     return (
@@ -94,18 +84,16 @@ class BasicInfoPage extends React.Component {
               </div>
           </Scrollbars>
           <div className="bottom"></div>
-            <button onMouseDown = {()=> {this.setState({imageURL: continue_dark_button})}}
-                    onMouseUp = {()=> {this.setState({imageURL:continue_button})}}
-                    style={{outline:"none", position:"absolute", padding: "0px", left: "8px", bottom:"5px", border:"none"}}
+            <button style={{outline:"none", position:"absolute", padding: "0px", left: "8px", bottom:"5px", border:"none"}}
                     onClick = {() => {
                       if(this.checkIfFieldsNotNull()===false)
                         alert("please fill all fields");
                       else if(this.state.availableTimeFrom.getTime() > this.state.availableTimeTo.getTime() )
                         alert("availableTimeFrom should be smaller than availableTimeTo!");
                       else
-                        this.props.history.push({pathname: '/optionsPage', query:this.state });
+                        this.props.history.push({pathname: '/optionsPage', query: {basicInfo: this.state, options: []}});
                     }}>
-                <img src= {this.state.imageURL}  alt="continue" style={{width:"359px", height:"50px"}} />
+                <img src= {continue_button}  alt="continue" style={{width:"359px", height:"50px"}} />
             </button>
       </div>
     );
