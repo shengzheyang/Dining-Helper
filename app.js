@@ -430,9 +430,18 @@ function receivedPostback(event) {
   // let them know it was successful
   //sendTextMessage(senderID, "Postback called");
   if (payload.substring(0, 11) === "get_started") {
-    callSendAPI(getStartedMessage());
+    callSendAPI(messageAddRecipient(senderID, getStartedMessage()));
   }
 }
+
+const messageAddRecipient = (recipientId, messagePayload) => {
+  return {
+    recipient: {
+      id: recipientId
+    },
+    message: messagePayload
+  };
+};
 
 /*
  * Message Read Event
