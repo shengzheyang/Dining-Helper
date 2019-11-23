@@ -49,9 +49,7 @@ const PAGE_ACCESS_TOKEN = process.env.MESSENGER_PAGE_ACCESS_TOKEN
 
 // URL where the app is running (include protocol). Used to point to scripts and
 // assets located at this address.
-const SERVER_URL = process.env.SERVER_URL
-  ? process.env.SERVER_URL
-  : config.get("serverURL");
+const SERVER_URL = "localhost:5000"; //process.env.SERVER_URL ? process.env.SERVER_URL : config.get("serverURL");
 
 if (!(APP_SECRET && VALIDATION_TOKEN && PAGE_ACCESS_TOKEN && SERVER_URL)) {
   console.error("Missing config values");
@@ -85,6 +83,7 @@ app.get("/webhook", function(req, res) {
  */
 app.post("/webhook", function(req, res) {
   var data = req.body;
+  console.log("Webhook POST", JSON.stringify(data));
 
   // Make sure this is a page subscription
   if (data.object == "page") {
@@ -112,6 +111,8 @@ app.post("/webhook", function(req, res) {
 
         if (messagingEvent.postback) {
           receivedPostback(messagingEvent);
+        } else if (messagingEvent.message) {
+          receivedMessage(messagingEvent);
         } else {
           console.log(
             "Webhook received unknown messagingEvent: ",
