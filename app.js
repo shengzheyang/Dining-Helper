@@ -19,7 +19,7 @@ const bodyParser = require("body-parser"),
   request = require("request");
 
 var app = express();
-app.set("port", process.env.PORT || 5000);
+app.set("port", 5000);
 app.set("view engine", "ejs");
 app.use(bodyParser.json({ verify: verifyRequestSignature }));
 app.use(express.static("public"));
@@ -49,7 +49,9 @@ const PAGE_ACCESS_TOKEN = process.env.MESSENGER_PAGE_ACCESS_TOKEN
 
 // URL where the app is running (include protocol). Used to point to scripts and
 // assets located at this address.
-const SERVER_URL = process.env.SERVER_URL ? process.env.SERVER_URL : config.get("serverURL");
+const SERVER_URL = process.env.SERVER_URL
+  ? process.env.SERVER_URL
+  : config.get("serverURL");
 
 if (!(APP_SECRET && VALIDATION_TOKEN && PAGE_ACCESS_TOKEN && SERVER_URL)) {
   console.error("Missing config values");
