@@ -69,8 +69,8 @@ class OptionsPage extends React.Component {
               }
           
               console.log(userViewedPolling);
-              // const baseURL = "http://localhost:5000" // locally
-              const baseURL = "http://dining-helper.herokuapp.com" // heroku
+              // const baseURL = "https://localhost:5000" // locally
+              const baseURL = "https://dining-helper.herokuapp.com" // heroku
               axios.post(baseURL + '/addPolling', userViewedPolling)
                 .then(res => console.log(res.data));
           
