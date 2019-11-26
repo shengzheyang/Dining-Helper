@@ -79,7 +79,7 @@ class BasicInfoPage extends React.Component {
       pollingId: this.props.match.params.pollingId,
       userId: "user001",
     }
-    axios.post('http://dining-helper.herokuapp.com/getPollingById', param)
+    axios.post('https://dining-helper.herokuapp.com/getPollingById', param)
     .then(res => {
       this.setState({basicInfo: res.data.basicInfo, options: res.data.options})
     })
