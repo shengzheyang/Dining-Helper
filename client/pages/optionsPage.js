@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import axios from 'axios';
 import {Scrollbars} from 'react-custom-scrollbars';
 import {Label} from '../components/components';
 import {TextInput} from '../components/components';
@@ -16,11 +17,7 @@ class OptionsPage extends React.Component {
       basicInfo: this.props.location.query.basicInfo,
       options: this.props.location.query.options,
     };
-    this.changeLocationSwitch = this.changeLocationSwitch.bind(this);
-  }
-
-  changeLocationSwitch(newValue) {
-    this.setState({locationSwitchChecked: newValue});
+    this.setOptions = this.setOptions.bind(this);
   }
 
   renderLabel(subject) {
@@ -36,20 +33,27 @@ class OptionsPage extends React.Component {
   }
 
   renderOptionForm() {
-    return <OptionForm basicInfo={this.state.basicInfo} options ={this.state.options} history={this.props.history}/>;
+    return <OptionForm basicInfo={this.state.basicInfo} options ={this.state.options} setOptions={this.setOptions} history={this.props.history} location={this.props.location}/>;
+  }
+
+  setOptions(options) {
+    this.setState({options:options});
   }
 
   render() {
+    console.log('state',this.state);
+    var basicInfo = this.state.basicInfo;
+    var options = this.state.options;
     return (
         <div style={{position:"relative"}}>
             <Scrollbars autoHide style={{ height:"499px" }}>
                 <div class="element">
                     <div class="label">{this.renderLabel("Subject")}</div>
-                    {this.renderPlainText(this.state.basicInfo.subject)}
+                    {this.renderPlainText(basicInfo.subject)}
                 </div>
                 <div class="element">
                     <div class="label">{this.renderLabel("Polling End Time")}</div>
-                    {this.renderPlainText(this.state.basicInfo.pollingEndTime.toLocaleString())}
+                    {this.renderPlainText(basicInfo.pollingEndTime.toLocaleString())}
                 </div>
                 <div class="element">
                   <div class="label">{this.renderLabel("Options")}</div>
@@ -57,7 +61,21 @@ class OptionsPage extends React.Component {
                 </div>
             </Scrollbars>
             <div class="bottom">
-            <button onClick="this.handleClick"
+            <button onClick={() => {
+              // if there is no pollingId concatenated in the URL
+              const userViewedPolling = {
+                basicInfo: this.state.basicInfo,
+                options: this.state.options,
+              }
+          
+              console.log(userViewedPolling);
+              // const baseURL = "http://localhost:5000" // locally
+              const baseURL = "http://dining-helper.herokuapp.com" // heroku
+              axios.post(baseURL + '/addPolling', userViewedPolling)
+                .then(res => console.log(res.data));
+          
+              // go back to FB views
+            }}
                     style={{outline:"none", position:"absolute", padding: "0px", left: "8px", bottom:"5px", border:"none"}}>
                 <img src= {submit_button}  alt="continue" style={{width:"359px", height:"50px"}} />
             </button></div>

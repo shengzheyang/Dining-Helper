@@ -12,6 +12,7 @@ Geocode.enableDebug();
 class MapPage extends React.Component{
 	constructor( props ){
     super( props );
+		var query =  this.props.location.query;
     this.state = {
         // keep record of the restaurant info
         address: '2190 Barranca Pkwy, Irvine, CA 92606',
@@ -27,9 +28,19 @@ class MapPage extends React.Component{
             lat: 48.85,
             lng: 2.35
         },
-				basicInfo: this.props.location.query.basicInfo,
-				options: this.props.location.query.options
+				basicInfo: {
+					isOwner: query.basicInfo.isOwner,
+					subject: query.basicInfo.subject,
+					pollingEndTime: new Date(query.basicInfo.pollingEndTime.valueOf()),
+					availableTimeFrom: new Date(query.basicInfo.availableTimeFrom.valueOf()),
+					availableTimeTo: new Date(query.basicInfo.availableTimeTo.valueOf()),
+					startPoint: query.basicInfo.startPoint,
+					isMultipleChoice: query.basicInfo.isMultipleChoice
+				},
+				options: query.options,
+				previousPath: query.previousPath
     }
+
   }
 
   componentDidMount() {
@@ -38,16 +49,25 @@ class MapPage extends React.Component{
   }
 
 	addOptionAndRedicrect(content){
-    var array = [...this.state.options];
-    var option = {
-      content: content,
-      isCreator: true,
-      isVoted: false
-    }
-    array.push(option);
-    this.setState({options: array}, () => {
-			this.props.history.push({pathname: '/optionsPage', query: {basicInfo: this.state.basicInfo, options: this.state.options}});
-		});
+		if(this.state.previousPath === '/optionsPage') {
+			var array = [...this.state.options];
+	    var option = {
+	      content: content,
+	      isCreator: true,
+	      isVoted: false,
+	    }
+	    array.push(option);
+	    this.setState({options: array}, () => {
+				this.props.history.push({pathname: this.state.previousPath, query: {basicInfo: this.state.basicInfo, options: this.state.options}});
+			});
+		} else {
+			var basicInfo = {...this.state.basicInfo};
+			basicInfo.startPoint = content;
+			this.setState({basicInfo: basicInfo}, () => {
+				this.props.history.push({pathname: this.state.previousPath, query: {basicInfo: this.state.basicInfo, options: this.state.options}});
+			});
+		}
+
   }
 
   // get latlng of the user
@@ -154,7 +174,7 @@ class MapPage extends React.Component{
                             }}
 							onPlaceSelected={this.onAutoCompleteSelected}
                             placeholder='Search a restaurant'
-                            types={['establishment']}
+                            types={[]}
                             fields={['name', 'formatted_address', 'geometry']}
 						/>
 
@@ -179,10 +199,14 @@ class MapPage extends React.Component{
 
             <div className="bottom" style={{position: 'absolute', top: '559px'}}>
                 <button onClick={() => {
-													var content = this.state.name + ", " + this.state.address;
-													console.log(content);
-													this.addOptionAndRedicrect(content);
-
+                            var content = ''
+                            if (this.state.name) {
+                                content = this.state.name + ", " + this.state.address;
+                            } else {
+                                content = this.state.address;
+                            }
+                            
+                            this.addOptionAndRedicrect(content);
 												}}
                         style={{outline:"none", position:"absolute", padding: "0px", left: "8px", bottom:"5px", border:"none"}}>
                     <img src= {continue_button}  alt="continue" style={{width:"359px", height:"50px"}} />

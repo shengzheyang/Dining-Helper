@@ -1,14 +1,12 @@
-/**
- * Copyright 2017-present, Facebook, Inc. All rights reserved.
- *
- * This source code is licensed under the license found in the
- * LICENSE file in the root directory of this source tree.
- */
+const polling = require('../models/polling.js');
+const stateOptions2dbOptions = require('../controller/stateOptions2dbOptions.js');
+
 
 // ===== MODULES ===============================================================
 var express = require('express');
 
 const router = express.Router();
+const getUserViewedPollingFromPolling = require('../models/userViewedPolling.js');
 
 // GET home page
 router.get('/', (_, res) => {
@@ -17,5 +15,42 @@ router.get('/', (_, res) => {
     listId: null,
   });
 });
+
+router.route('/addPolling').post((req, res) => {
+  // receive userViewedPolling from the frontend (basicInfo, options)
+  const basicInfo = req.body.basicInfo;
+  const options = req.body.options;
+  console.log(basicInfo);
+  console.log(options);
+
+
+  var dbOptions = stateOptions2dbOptions(options, 'myUserId')
+  var contents = [];
+  options.map(option => {
+    if (option.isVoted) {
+      contents.push(option.content);
+      console.log("content:", option.content)
+    }
+  })
+
+  const relatedUsersInfo = [{
+    userId: 'user001',
+    availableTimeFrom: basicInfo.availableTimeFrom,
+    availableTimeTo:basicInfo.availableTimeTo,
+    startPoint: basicInfo.startPoint
+  }]
+  pollingId = polling.startPolling('user001', basicInfo.subject, basicInfo.pollingEndTime, 0, 1, dbOptions, relatedUsersInfo)
+  .then((pollingId) => {polling.voteOptions('myUserId', pollingId, contents)})
+  .then(() => res.json('Polling started!'))
+  .catch(err => res.status(400).json('Error: ' + err));
+});
+
+
+
+router.route('/getPollingById').post((req, res) => {
+  getUserViewedPollingFromPolling(req.body.pollingId, req.body.userId)
+  .then(polling => res.json(polling))
+  .catch(err => res.status(400).json('Error: ' + err));
+})
 
 module.exports = router;

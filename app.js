@@ -10,6 +10,7 @@
 /* jshint node: true, devel: true */
 "use strict";
 var index = require("./routes/index");
+var basicInfoPage = require("./routes/basicInfoPage");
 
 const bodyParser = require("body-parser"),
   config = require("config"),
@@ -25,6 +26,7 @@ app.use(bodyParser.json({ verify: verifyRequestSignature }));
 app.use(express.static("public"));
 
 app.use("/", index);
+app.use("/basicInfoPage", basicInfoPage);
 
 /*
  * Be sure to setup your config values before running this code. You can
@@ -85,7 +87,6 @@ app.get("/webhook", function(req, res) {
  */
 app.post("/webhook", function(req, res) {
   var data = req.body;
-  console.log("Webhook POST", JSON.stringify(data));
 
   // Make sure this is a page subscription
   if (data.object == "page") {
@@ -113,8 +114,6 @@ app.post("/webhook", function(req, res) {
 
         if (messagingEvent.postback) {
           receivedPostback(messagingEvent);
-        } else if (messagingEvent.message) {
-          receivedMessage(messagingEvent);
         } else {
           console.log(
             "Webhook received unknown messagingEvent: ",
