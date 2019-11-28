@@ -1,4 +1,4 @@
-const polling = require('./polling');
+const polling = require('../models/polling');
 
 const getUserViewedPollingFromPolling = async (pollingId, userId) => {
   var onePolling = await polling.findOne({'_id': pollingId}).exec();

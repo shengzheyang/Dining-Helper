@@ -4,16 +4,24 @@ import BasicInfoPage from './pages/basicInfoPage';
 import OptionsPage from './pages/optionsPage';
 import MapPage from './pages/mapPage';
 
-import {BrowserRouter as Router, Route} from "react-router-dom";
+import {BrowserRouter as Router, Route, Redirect} from "react-router-dom";
 
 class App extends React.Component {
+	// constructor(props){
+	// 	super(props);
+	// 	this.state.pollingId = listId
+	// }
+
 	render(){
 		return(
-    	<Router >
+    	<Router>
     	 <div>
-    		<Route exact path="/" component={BasicInfoPage} />
-        <Route path="/optionsPage" component={OptionsPage} />
+				<Route exact path="/" render={() => (
+					<Redirect to="/basicInfoPage"/>
+				 )}/>
+        		<Route path="/optionsPage" component={OptionsPage} />
 				<Route path="/mapPage" component={MapPage} />
+				<Route path="/basicInfoPage/:pollingId?" component={BasicInfoPage} />
     	</div>
     	</Router>
     );
@@ -21,7 +29,4 @@ class App extends React.Component {
 }
 
 // ========================================
-ReactDOM.render(
-  <App />,
-  document.getElementById('root')
-);
+ReactDOM.render(<App />, document.getElementById('root'));

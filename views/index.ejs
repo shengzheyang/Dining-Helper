@@ -3,15 +3,15 @@
   <head>
     <title>Dining Helper</title>
     <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1">
+    <script src="./bundle.js"></script>
   </head>
   <body>
     <script>
       window.fbAsyncInit = function() {
-        FB.init({
-          appId: '541846993263590',
-          xfbml: true,
-          version: 'v2.6'
-        });
+        MessengerExtensions.getContext('541846993263590',
+          function success(context) {
+            window.attachApp(context.psid, context.thread_type)
+          }, null);
       };
 
       (function(d, s, id){
@@ -23,6 +23,7 @@
       }(document, 'script', 'Messenger'));
     </script>
     <div id="root"></div>
+    <%= listId %>
     <script src="/bundle.js"></script>
   </body>
 </html>

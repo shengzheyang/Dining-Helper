@@ -4,29 +4,99 @@ import {TextInput} from '../components/components';
 import {SwitchToggle} from '../components/components';
 import {PlainText} from '../components/components';
 import {DateTimePicker} from '../components/components';
-import { Scrollbars } from 'react-custom-scrollbars';
+import {Scrollbars} from 'react-custom-scrollbars';
+import {UnmountClosed} from 'react-collapse';
+import axios from 'axios';
 
 import * as continue_button from '../continue.png';
+import * as map_button from '../map.png';
+
 
 class BasicInfoPage extends React.Component {
   constructor(props) {
       super(props);
-      this.state = {
-        isOwner: true,
-        subject: undefined,
-        pollingEndTime: undefined,
-        availableTimeFrom: undefined,
-        availableTimeTo: undefined,
-        isMultipleChoice: false,
-      };
-      this.changeStateValue = this.changeStateValue.bind(this);
+      this.initState();
+      this.changeBasicInfo = this.changeBasicInfo.bind(this);
+      this.changeResultOpen = this.changeResultOpen.bind(this);
   }
 
-  changeStateValue(key_value) {
-    this.setState(key_value);
-    setTimeout( (val=this.state) => {
-      console.log(val);
-    }, 1000);
+  initState() {
+    var query = this.props.location.query;
+    var params = this.props.match.params;
+    // from mapPage to basicInfoPage
+    if(query) {
+      console.log('start point', query.basicInfo.startPoint);
+      this.state = {
+        pollingId: query.pollingId,
+        resultOpen: false,
+        basicInfo: {
+          isOwner: query.basicInfo.isOwner,
+          subject: query.basicInfo.subject,
+          pollingEndTime: query.basicInfo.pollingEndTime,
+          availableTimeFrom: query.basicInfo.availableTimeFrom,
+          availableTimeTo: query.basicInfo.availableTimeTo,
+          startPoint: query.basicInfo.startPoint,
+          isMultipleChoice: query.basicInfo.isMultipleChoice,
+        },
+        options: query.options
+      };
+    } else {
+      if(params.pollingId) {
+        // get polling info from the DB and assign them into states
+        this.state = {
+          resultOpen: false,
+          pollingId: params.pollingId,
+          basicInfo: {
+            isOwner: true,
+            subject: '',
+            pollingEndTime: Date.now(),
+            availableTimeFrom: Date.now(),
+            availableTimeTo: Date.now(),
+            startPoint: '',
+            isMultipleChoice: true,
+          },
+          options: []
+        };
+      } else {
+        this.state = {
+          pollingId: "",
+          resultOpen: false,
+          basicInfo: {
+            isOwner: true,
+            subject: '',
+            pollingEndTime: Date.now(),
+            availableTimeFrom: Date.now(),
+            availableTimeTo: Date.now(),
+            startPoint: '',
+            isMultipleChoice: true,
+          },
+          options: []
+        };
+      }
+    }
+  }
+
+  componentDidMount() {
+    if (this.props.match.params.pollingId) {
+      const param = {
+        pollingId: this.props.match.params.pollingId,
+        userId: "myUserId",
+      }
+      axios.post('http://localhost:5000/getPollingById', param)
+      .then(res => {
+        this.setState({basicInfo: res.data.basicInfo, options: res.data.options})
+      })
+    }
+  }
+
+  changeBasicInfo(key, value) {
+    var basicInfo = {...this.state.basicInfo};
+    basicInfo[key] = value;
+    this.setState({basicInfo: basicInfo});
+  }
+
+  changeResultOpen(newValue) {
+    this.setState({resultOpen: newValue});
   }
 
   renderLabel(subject) {
@@ -34,53 +104,71 @@ class BasicInfoPage extends React.Component {
     }
 
   renderTextInput(content, hint, isOwner) {
-    return <TextInput content={content} hint={hint} changeStateValue={this.changeStateValue} isOwner={isOwner}/>;
+    return <TextInput content={content} hint={hint} changeBasicInfo={this.changeBasicInfo} isOwner={isOwner}/>;
   }
 
 
-  renderSwitch(isMultipleChoice) {
-      return <SwitchToggle isMultipleChoice = {isMultipleChoice} changeStateValue= {this.changeStateValue}/>;
+  renderSwitch() {
+      return <SwitchToggle resultOpen={this.state.resultOpen} changeResultOpen={this.changeResultOpen}/>;
   }
 
   renderPlainText(text) {
       return <PlainText text={text}/>;
   }
 
-  renderDateTimePicker(index, hint, isOwner) {
-    return <DateTimePicker index={index}  hint={hint} changeStateValue= {this.changeStateValue} isOwner={isOwner}/>
+  renderDateTimePicker(index, hint, time, isOwner) {
+    return <DateTimePicker index={index}  hint={hint} time={time} changeBasicInfo= {this.changeBasicInfo} isOwner={isOwner}/>
   }
 
   checkIfFieldsNotNull(){
-    if(this.state.subject && this.state.pollingEndTime && this.state.availableTimeFrom && this.state.availableTimeTo)
+    var basicInfo = this.state.basicInfo;
+    if(basicInfo.subject && basicInfo.startPoint )
       return true;
     else
       return false;
   }
 
   render() {
+    // console.log("render")
+
+    var pollingId = this.state.pollingId;
+    var basicInfo = this.state.basicInfo;
+    var options = this.state.options;
     return (
       <div style={{position:"relative"}}>
           <Scrollbars autoHide style={{ height:"499px" }}>
               <div className="element">
                   <div>{this.renderLabel("Subject")}</div>
-                  {this.renderTextInput(this.state.subject, "Input Subject Here", this.state.isOwner)}
+                  {this.renderTextInput(basicInfo.subject, "Input Subject Here", basicInfo.isOwner)}
               </div>
               <div className="element">
                   <div>{this.renderLabel("Polling End Time")}</div>
-                  {this.renderDateTimePicker(0, "End Time", this.state.isOwner)}
+                  {this.renderDateTimePicker(0, "End Time", basicInfo.pollingEndTime, basicInfo.isOwner)}
+                  {/* {console.log("time:", basicInfo.pollingEndTime)} */}
               </div>
               <div className="element" >
                   <div>{this.renderLabel("Available Time")}</div>
-                  {this.renderDateTimePicker(1, "From", true)}
-                  <div > {this.renderDateTimePicker(2, "To", true)}</div>
+                  {this.renderDateTimePicker(1, "From", basicInfo.availableTimeFrom, true)}
+                  <div > {this.renderDateTimePicker(2, "To", basicInfo.availableTimeTo, true)}</div>
               </div>
               <div className="element" >
                 <div>{this.renderLabel("Start Point")}</div>
-                <a><font color="0084ff">Choose Your Start Point</font></a>
+                <div className="option">
+                  <a><font color="0084ff">{basicInfo.startPoint}</font></a>
+                  <button style={{outline:"none", border:"none", background:"transparent", position:"absolute", right:"14px"}}
+                          onClick = {() => {
+                            this.props.history.push({pathname: '/mapPage', query: {pollingId: pollingId, basicInfo:basicInfo, options: options, previousPath: this.props.location.pathname}});
+                          }}>
+                      <img src= {map_button}  alt="continue" style={{width:"24px", height:"24px"}} />
+                  </button>
+                </div>
               </div>
-              <div className="element" style={{position:"relative"}}>
-                  {this.renderPlainText("Multiple Choice")}
-                  <div style={{position:"absolute", left:"318px", top:"8px"}}>{this.renderSwitch(this.state.isMultipleChoice)}</div>
+              <div class="element" style={{position:"relative"}}>
+                  {this.renderPlainText("Show Current Result")}
+                  <div style={{position:"absolute", left:"318px", top:"8px"}}>{this.renderSwitch(0)}</div>
+                  <UnmountClosed isOpened={this.state.resultOpen}>
+                    <a><font color="0084ff">here is the current result</font></a>
+                  </UnmountClosed>
               </div>
           </Scrollbars>
           <div className="bottom"></div>
@@ -88,10 +176,10 @@ class BasicInfoPage extends React.Component {
                     onClick = {() => {
                       if(this.checkIfFieldsNotNull()===false)
                         alert("please fill all fields");
-                      else if(this.state.availableTimeFrom.getTime() > this.state.availableTimeTo.getTime() )
+                      else if(basicInfo.availableTimeFrom >= basicInfo.availableTimeTo)
                         alert("availableTimeFrom should be smaller than availableTimeTo!");
                       else
-                        this.props.history.push({pathname: '/optionsPage', query: {basicInfo: this.state, options: []}});
+                        this.props.history.push({pathname: '/optionsPage', query: {pollingId: pollingId, basicInfo: basicInfo, options: options}});
                     }}>
                 <img src= {continue_button}  alt="continue" style={{width:"359px", height:"50px"}} />
             </button>

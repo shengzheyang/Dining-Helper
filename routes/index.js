@@ -1,14 +1,14 @@
-/**
- * Copyright 2017-present, Facebook, Inc. All rights reserved.
- *
- * This source code is licensed under the license found in the
- * LICENSE file in the root directory of this source tree.
- */
+
+
 
 // ===== MODULES ===============================================================
 var express = require('express');
 
 const router = express.Router();
+const getUserViewedPollingFromPolling = require('../controller/userViewedPolling.js');
+const polling = require('../models/polling.js');
+const stateOptions2dbOptions = require('../controller/stateOptions2dbOptions.js');
+const updateDB = require('../controller/updateDB.js');
 
 // GET home page
 router.get('/', (_, res) => {
@@ -16,6 +16,46 @@ router.get('/', (_, res) => {
     demo: process.env.DEMO,
     listId: null,
   });
+});
+
+router.route('/addPolling').post((req, res) => {
+  // receive userViewedPolling from the frontend (basicInfo, options)
+  const basicInfo = req.body.basicInfo;
+  const options = req.body.options;
+  console.log(basicInfo);
+  console.log(options);
+
+  var userId = "myUserId"
+  var dbOptions = stateOptions2dbOptions(options, userId)
+  var contents = [];
+  options.map(option => {
+    if (option.isVoted) {
+      contents.push(option.content);
+      console.log("content:", option.content)
+    }
+  })
+
+  const relatedUsersInfo = [{
+    userId: userId,
+    availableTimeFrom: basicInfo.availableTimeFrom,
+    availableTimeTo:basicInfo.availableTimeTo,
+    startPoint: basicInfo.startPoint
+  }]
+  pollingId = polling.startPolling(userId, basicInfo.subject, basicInfo.pollingEndTime, 0, 1, dbOptions, relatedUsersInfo)
+  .then((pollingId) => {polling.voteOptions(userId, pollingId, contents)})
+  .then(() => res.json('Polling started!'))
+  .catch(err => res.status(400).json('Error: ' + err));
+});
+
+
+router.route('/getPollingById').post((req, res) => {
+  getUserViewedPollingFromPolling(req.body.pollingId, req.body.userId)
+  .then(polling => res.json(polling))
+  .catch(err => res.status(400).json('Error: ' + err));
+});
+
+router.route('/updatePollingIfChanged').post((req, res) => {
+  updateDB(req.body.userId, req.body.pollingId, req.body.oldPolling, req.body.newPolling);
 });
 
 module.exports = router;

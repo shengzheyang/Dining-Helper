@@ -10,7 +10,7 @@ module.exports = {
 	//    "watch:server" : "nodemon app.js",
 	output:{    
 		path: path.join(__dirname, '/public'),    
-		filename: 'bundle.js'  
+		filename: 'bundle.js'
 	},
 	//Setup loaders  
 	module:{

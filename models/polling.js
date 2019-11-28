@@ -4,7 +4,7 @@ const user = require('./user');
 const Schema = new mongoose.Schema({
   creator: String,
   subject: String,
-  pollingEndTime: Date,
+  pollingEndTime: Number,
   placeMode: {type: Boolean, default: 0},
   multichoice: {type: Boolean, default: 0},
   options: [{
@@ -14,8 +14,8 @@ const Schema = new mongoose.Schema({
   }],
   relatedUsersInfo:[{
     userId: String,
-    availableTimeFrom: Date,
-    availableTimeTo:Date,
+    availableTimeFrom: Number,
+    availableTimeTo: Number,
     startPoint: String
   }]
 });
@@ -60,6 +60,32 @@ const deletePolling = async (userId, pollingId) => {
     await polling.deleteOne({'_id': pollingId}).exec();
     await user.deleteCreatedPollingsToUser([pollingId], userId);
     await user.deleteAllSharedPollings([pollingId]);
+  }
+}
+
+/**
+ * changeSubject - change subject of specific polling.
+ * @param   {String} userId - check the user who wants to delete polling.
+ * @param   {String} pollingId - which polling to delete.
+ * @param   {Date} newSubject - new subject.
+ */
+const changeSubject = async (userId, pollingId, newSubject) => {
+  var doc = await polling.findOne({'_id': pollingId}).exec();
+  if(userId === doc.creator) {
+    await polling.updateOne({'_id': pollingId}, {'subject': newSubject}).exec();
+  }
+}
+
+/**
+ * changePollingEndTime - change pollingEndTime of specific polling.
+ * @param   {String} userId - check the user who wants to delete polling.
+ * @param   {String} pollingId - which polling to delete.
+ * @param   {Date} newPollingEndTime - new pollingEndTime.
+ */
+const changePollingEndTime = async (userId, pollingId, newPollingEndTime) => {
+  var doc = await polling.findOne({'_id': pollingId}).exec();
+  if(userId === doc.creator) {
+    await polling.updateOne({'_id': pollingId}, {'pollingEndTime': newPollingEndTime}).exec();
   }
 }
 
@@ -207,3 +233,5 @@ module.exports.addUsersInfo = addUsersInfo;
 module.exports.deleteUsersInfo = deleteUsersInfo;
 module.exports.changeAvaliableTimes = changeAvaliableTimes;
 module.exports.changeStartPoints = changeStartPoints;
+module.exports.changePollingEndTime = changePollingEndTime;
+module.exports.changeSubject = changeSubject;

@@ -34,9 +34,25 @@ class TextInput extends React.Component {
       this.handleChange = this.handleChange.bind(this);
     }
 
+    componentDidUpdate(prevProps) {
+      if(this.props.content!== prevProps.content) {
+        if(this.props.isOwner) {
+          this.setState({
+            value: this.props.content,
+            disabled: ""
+          });
+        } else {
+          this.setState({
+            value: this.props.content,
+            disabled: "disabled"
+          });
+        }
+      }
+    }
+
     handleChange(event) {
         this.setState({value: event.target.value});
-        this.props.changeStateValue({subject: event.target.value});
+        this.props.changeBasicInfo('subject', event.target.value);
     }
 
     render() {
@@ -51,7 +67,7 @@ class SwitchToggle extends React.Component {
     super(props);
 
     this.state = {
-      checked: this.props.isMultipleChoice
+      checked: this.props.resultOpen
     }
   }
 
@@ -63,7 +79,7 @@ class SwitchToggle extends React.Component {
         className="switch"
         onChange={checked => {
           this.setState({ checked });
-          this.props.changeStateValue({isMultipleChoice: checked});
+          this.props.changeResultOpen(checked);
         }}
         onColor="rgb(0, 132, 255)"
         offColor = "rgb(216,216,216)"
@@ -85,26 +101,43 @@ class DateTimePicker extends React.Component {
     super(props);
     if(this.props.isOwner) {
       this.state = {
-        time: undefined,
+        // this new Date is  in GMT 0
+        time: new Date(this.props.time),
         disabled: ""
       };
     } else {
       this.state = {
-        time: undefined,
+        time: new Date(this.props.time),
         disabled: "disabled"
       };
     }
 
   }
 
+  componentDidUpdate(prevProps) {
+    if(this.props.time!== prevProps.time) {
+      if(this.props.isOwner) {
+        this.setState({
+          time: new Date(this.props.time),
+          disabled: ""
+        });
+      } else {
+        this.setState({
+          time: new Date(this.props.time),
+          disabled: "disabled"
+        });
+      }
+    }
+  }
+
   handleChange = date => {
    this.setState({time: date});
    if(this.props.index === 0){
-     this.props.changeStateValue({pollingEndTime: date});
+     this.props.changeBasicInfo('pollingEndTime', Date.parse(date));
    }else if(this.props.index === 1){
-     this.props.changeStateValue({availableTimeFrom: date});
+     this.props.changeBasicInfo('availableTimeFrom', Date.parse(date));
    }else if(this.props.index === 2){
-     this.props.changeStateValue({availableTimeTo: date});
+     this.props.changeBasicInfo('availableTimeTo', Date.parse(date));
    }
   };
 
@@ -153,13 +186,18 @@ class Option extends React.Component {
   render() {
     return(
       <div className="option">
-        <input type="checkbox" checked = {this.state.isVoted} style={{width:"24px", height:"24px"}}
-          onChange={checked => {
-            this.setState({ isVoted: checked });
-            this.props.voteOption(this.props.index);
+        <input type="checkbox" checked={this.state.isVoted} style={{width:"24px", height:"24px"}}
+          onChange={event => {
+            if(event.target.checked) {
+              this.setState({isVoted: true});
+              this.props.voteOption(this.props.index);
+            } else {
+              this.setState({ isVoted: false});
+              this.props.notVoteOption(this.props.index);
+            }
           }}
         />
-        <a className="optionName"><font color="0084ff">{this.state.content}</font></a>
+        <a><font color="0084ff">{this.state.content}</font></a>
         {
           this.state.isCreator ?
               <button style={{outline:"none", border:"none", background:"transparent", position:"absolute", right:"14px"}}
@@ -177,33 +215,57 @@ class OptionForm extends React.Component {
   constructor(props) {
       super(props);
       this.state = {
+        pollingId: this.props.pollingId,
         basicInfo: this.props.basicInfo,
         options: this.props.options,
       }
       this.deleteOption = this.deleteOption.bind(this);
       this.voteOption = this.voteOption.bind(this);
+      this.notVoteOption = this.notVoteOption.bind(this);
+  }
+
+  componentDidUpdate(prevProps) {
+    if(this.props.options!== prevProps.options) {
+      this.setState({
+        pollingId: this.props.pollingId,
+        basicInfo: this.props.basicInfo,
+        options: this.props.options,
+      });
+    }
   }
 
   voteOption(index) {
     var array = [...this.state.options]; // make a separate copy of the array
     if (index !== -1) {
       array[index].isVoted = true;
-      this.setState({options: array});
+      // this.setState({options: array}, ()=>);
+      this.props.setOptions(array);
+    }
+  }
+
+  notVoteOption(index) {
+    var array = [...this.state.options]; // make a separate copy of the array
+    if (index !== -1) {
+      array[index].isVoted = false;
+      // this.setState({options: array}, ()=>);
+      this.props.setOptions(array);
     }
   }
 
   deleteOption(index) {
     var array = [...this.state.options]; // make a separate copy of the array
     if (index !== -1) {
+      console.log('array before delete', array);
       array.splice(index, 1);
-      this.setState({options: array});
+      // this.setState({options: array}, () => );
+      this.props.setOptions(array);
+      console.log('index to delete', index, 'options after delete', array);
     }
   }
 
   render() {
     var options = this.state.options;
-    console.log('options',options);
-
+    // console.log('options',options);
     return(
       <div>
       {
@@ -214,12 +276,15 @@ class OptionForm extends React.Component {
               isVoted = {val.isVoted}
               index = {index}
               voteOption = {this.voteOption}
+              notVoteOption = {this.notVoteOption}
               deleteOption = {this.deleteOption}/>
           );
         })
       }
       <button style={{outline:"none", border:"none", background:"transparent"}}
-              onClick = {() => {this.props.history.push({pathname: '/mapPage', query: this.state});} }>
+              onClick = {() => {
+                this.props.history.push({pathname: '/mapPage', query: {pollingId:this.state.pollingId, basicInfo:this.state.basicInfo, options: this.state.options, previousPath: this.props.location.pathname}});
+              }}>
           <img src= {add_button}  alt="continue" style={{width:"27px", height:"27px"}} />
       </button>
     </div>

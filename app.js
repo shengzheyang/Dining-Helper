@@ -10,6 +10,7 @@
 /* jshint node: true, devel: true */
 "use strict";
 var index = require("./routes/index");
+var basicInfoPage = require("./routes/basicInfoPage");
 
 const bodyParser = require("body-parser"),
   config = require("config"),
@@ -25,6 +26,7 @@ app.use(bodyParser.json({ verify: verifyRequestSignature }));
 app.use(express.static("public"));
 
 app.use("/", index);
+app.use("/basicInfoPage", basicInfoPage);
 
 /*
  * Be sure to setup your config values before running this code. You can
