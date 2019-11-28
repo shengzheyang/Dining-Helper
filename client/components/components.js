@@ -79,7 +79,11 @@ class SwitchToggle extends React.Component {
         className="switch"
         onChange={checked => {
           this.setState({ checked });
+<<<<<<< HEAD
           this.props.changeResultOpen(checked);
+=======
+          this.props.changeBasicInfo('isMultipleChoice', checked);
+>>>>>>> 51d422cf5d8701efa304b1f8f925ee7442fc3ae1
         }}
         onColor="rgb(0, 132, 255)"
         offColor = "rgb(216,216,216)"
@@ -102,18 +106,27 @@ class DateTimePicker extends React.Component {
     if(this.props.isOwner) {
       this.state = {
         // this new Date is  in GMT 0
+<<<<<<< HEAD
         time: new Date(this.props.time),
+=======
+        time: this.props.time,
+>>>>>>> 51d422cf5d8701efa304b1f8f925ee7442fc3ae1
         disabled: ""
       };
     } else {
       this.state = {
+<<<<<<< HEAD
         time: new Date(this.props.time),
+=======
+        time: this.props.time,
+>>>>>>> 51d422cf5d8701efa304b1f8f925ee7442fc3ae1
         disabled: "disabled"
       };
     }
 
   }
 
+<<<<<<< HEAD
   componentDidUpdate(prevProps) {
     if(this.props.time!== prevProps.time) {
       if(this.props.isOwner) {
@@ -129,15 +142,40 @@ class DateTimePicker extends React.Component {
       }
     }
   }
+=======
+  // componentDidUpdate(prevProps) {
+  //   if(this.props.time!== prevProps.time) {
+  //     if(this.props.isOwner) {
+  //       this.setState({
+  //         time: this.props.time,
+  //         disabled: ""
+  //       });
+  //     } else {
+  //       this.setState({
+  //         time: this.props.time,
+  //         disabled: "disabled"
+  //       });
+  //     }
+  //   }
+  // }
+>>>>>>> 51d422cf5d8701efa304b1f8f925ee7442fc3ae1
 
   handleChange = date => {
    this.setState({time: date});
    if(this.props.index === 0){
+<<<<<<< HEAD
      this.props.changeBasicInfo('pollingEndTime', Date.parse(date));
    }else if(this.props.index === 1){
      this.props.changeBasicInfo('availableTimeFrom', Date.parse(date));
    }else if(this.props.index === 2){
      this.props.changeBasicInfo('availableTimeTo', Date.parse(date));
+=======
+     this.props.changeBasicInfo('pollingEndTime', date);
+   }else if(this.props.index === 1){
+     this.props.changeBasicInfo('availableTimeFrom', date);
+   }else if(this.props.index === 2){
+     this.props.changeBasicInfo('availableTimeTo', date);
+>>>>>>> 51d422cf5d8701efa304b1f8f925ee7442fc3ae1
    }
   };
 
@@ -227,7 +265,10 @@ class OptionForm extends React.Component {
   componentDidUpdate(prevProps) {
     if(this.props.options!== prevProps.options) {
       this.setState({
+<<<<<<< HEAD
         pollingId: this.props.pollingId,
+=======
+>>>>>>> 51d422cf5d8701efa304b1f8f925ee7442fc3ae1
         basicInfo: this.props.basicInfo,
         options: this.props.options,
       });
@@ -283,7 +324,11 @@ class OptionForm extends React.Component {
       }
       <button style={{outline:"none", border:"none", background:"transparent"}}
               onClick = {() => {
+<<<<<<< HEAD
                 this.props.history.push({pathname: '/mapPage', query: {pollingId:this.state.pollingId, basicInfo:this.state.basicInfo, options: this.state.options, previousPath: this.props.location.pathname}});
+=======
+                this.props.history.push({pathname: '/mapPage', query: {basicInfo:this.state.basicInfo, options: this.state.options, previousPath: this.props.location.pathname}});
+>>>>>>> 51d422cf5d8701efa304b1f8f925ee7442fc3ae1
               }}>
           <img src= {add_button}  alt="continue" style={{width:"27px", height:"27px"}} />
       </button>

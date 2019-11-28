@@ -34,7 +34,11 @@ class OptionsPage extends React.Component {
   }
 
   renderOptionForm() {
+<<<<<<< HEAD
     return <OptionForm pollingId={this.state.pollingId} basicInfo={this.state.basicInfo} options ={this.state.options} setOptions={this.setOptions} history={this.props.history} location={this.props.location}/>;
+=======
+    return <OptionForm basicInfo={this.state.basicInfo} options ={this.state.options} setOptions={this.setOptions} history={this.props.history} location={this.props.location}/>;
+>>>>>>> 51d422cf5d8701efa304b1f8f925ee7442fc3ae1
   }
 
   setOptions(options) {
@@ -42,6 +46,10 @@ class OptionsPage extends React.Component {
   }
 
   render() {
+<<<<<<< HEAD
+=======
+    console.log('state',this.state);
+>>>>>>> 51d422cf5d8701efa304b1f8f925ee7442fc3ae1
     var basicInfo = this.state.basicInfo;
     var options = this.state.options;
     return (
@@ -53,7 +61,11 @@ class OptionsPage extends React.Component {
                 </div>
                 <div class="element">
                     <div class="label">{this.renderLabel("Polling End Time")}</div>
+<<<<<<< HEAD
                     {this.renderPlainText(new Date(basicInfo.pollingEndTime).toLocaleString())}
+=======
+                    {this.renderPlainText(basicInfo.pollingEndTime.toLocaleString())}
+>>>>>>> 51d422cf5d8701efa304b1f8f925ee7442fc3ae1
                 </div>
                 <div class="element">
                   <div class="label">{this.renderLabel("Options")}</div>
@@ -62,6 +74,7 @@ class OptionsPage extends React.Component {
             </Scrollbars>
             <div class="bottom">
             <button onClick={() => {
+<<<<<<< HEAD
               // do not submit multiple times if data are the same
               const baseURL = "http://localhost:5000" // locally
               // const baseURL = "https://dining-helper.herokuapp.com" // heroku
@@ -96,6 +109,21 @@ class OptionsPage extends React.Component {
                 .then(res => console.log(res.data));
                 // go back to FB views
               }
+=======
+              // if there is no pollingId concatenated in the URL
+              const userViewedPolling = {
+                basicInfo: this.state.basicInfo,
+                options: this.state.options,
+              }
+          
+              console.log(userViewedPolling);
+              // const baseURL = "https://localhost:5000" // locally
+              const baseURL = "https://dining-helper.herokuapp.com" // heroku
+              axios.post(baseURL + '/addPolling', userViewedPolling)
+                .then(res => console.log(res.data));
+          
+              // go back to FB views
+>>>>>>> 51d422cf5d8701efa304b1f8f925ee7442fc3ae1
             }}
                     style={{outline:"none", position:"absolute", padding: "0px", left: "8px", bottom:"5px", border:"none"}}>
                 <img src= {submit_button}  alt="continue" style={{width:"359px", height:"50px"}} />

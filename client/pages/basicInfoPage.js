@@ -4,8 +4,12 @@ import {TextInput} from '../components/components';
 import {SwitchToggle} from '../components/components';
 import {PlainText} from '../components/components';
 import {DateTimePicker} from '../components/components';
+<<<<<<< HEAD
 import {Scrollbars} from 'react-custom-scrollbars';
 import {UnmountClosed} from 'react-collapse';
+=======
+import { Scrollbars } from 'react-custom-scrollbars';
+>>>>>>> 51d422cf5d8701efa304b1f8f925ee7442fc3ae1
 import axios from 'axios';
 
 import * as continue_button from '../continue.png';
@@ -17,7 +21,10 @@ class BasicInfoPage extends React.Component {
       super(props);
       this.initState();
       this.changeBasicInfo = this.changeBasicInfo.bind(this);
+<<<<<<< HEAD
       this.changeResultOpen = this.changeResultOpen.bind(this);
+=======
+>>>>>>> 51d422cf5d8701efa304b1f8f925ee7442fc3ae1
   }
 
   initState() {
@@ -25,6 +32,7 @@ class BasicInfoPage extends React.Component {
     var params = this.props.match.params;
     // from mapPage to basicInfoPage
     if(query) {
+<<<<<<< HEAD
       console.log('start point', query.basicInfo.startPoint);
       this.state = {
         pollingId: query.pollingId,
@@ -35,6 +43,17 @@ class BasicInfoPage extends React.Component {
           pollingEndTime: query.basicInfo.pollingEndTime,
           availableTimeFrom: query.basicInfo.availableTimeFrom,
           availableTimeTo: query.basicInfo.availableTimeTo,
+=======
+      console.log('contains query')
+      this.state = {
+        // loading: false,
+        basicInfo: {
+          isOwner: query.basicInfo.isOwner,
+          subject: query.basicInfo.subject,
+          pollingEndTime: new Date(query.basicInfo.pollingEndTime.valueOf()),
+          availableTimeFrom: new Date(query.basicInfo.availableTimeFrom.valueOf()),
+          availableTimeTo: new Date(query.basicInfo.availableTimeTo.valueOf()),
+>>>>>>> 51d422cf5d8701efa304b1f8f925ee7442fc3ae1
           startPoint: query.basicInfo.startPoint,
           isMultipleChoice: query.basicInfo.isMultipleChoice,
         },
@@ -44,8 +63,12 @@ class BasicInfoPage extends React.Component {
       if(params.pollingId) {
         // get polling info from the DB and assign them into states
         this.state = {
+<<<<<<< HEAD
           resultOpen: false,
           pollingId: params.pollingId,
+=======
+          // loading: true,
+>>>>>>> 51d422cf5d8701efa304b1f8f925ee7442fc3ae1
           basicInfo: {
             isOwner: true,
             subject: '',
@@ -57,10 +80,19 @@ class BasicInfoPage extends React.Component {
           },
           options: []
         };
+<<<<<<< HEAD
       } else {
         this.state = {
           pollingId: "",
           resultOpen: false,
+=======
+        
+  
+        console.log(params.pollingId);
+      } else {
+        this.state = {
+          // loading: false,
+>>>>>>> 51d422cf5d8701efa304b1f8f925ee7442fc3ae1
           basicInfo: {
             isOwner: true,
             subject: '',
@@ -74,6 +106,7 @@ class BasicInfoPage extends React.Component {
         };
       }
     }
+<<<<<<< HEAD
   }
 
   componentDidMount() {
@@ -89,14 +122,34 @@ class BasicInfoPage extends React.Component {
     }
   }
 
+=======
+  }
+
+  componentDidMount() {
+    const param = {
+      pollingId: this.props.match.params.pollingId,
+      userId: "user001",
+    }
+    axios.post('https://dining-helper.herokuapp.com/getPollingById', param)
+    .then(res => {
+      this.setState({basicInfo: res.data.basicInfo, options: res.data.options})
+    })
+    .then(() => console.log("state changed: ", this.state))
+    .then(() => console.log("componentDidMount"))
+  }
+
+>>>>>>> 51d422cf5d8701efa304b1f8f925ee7442fc3ae1
   changeBasicInfo(key, value) {
     var basicInfo = {...this.state.basicInfo};
     basicInfo[key] = value;
     this.setState({basicInfo: basicInfo});
+<<<<<<< HEAD
   }
 
   changeResultOpen(newValue) {
     this.setState({resultOpen: newValue});
+=======
+>>>>>>> 51d422cf5d8701efa304b1f8f925ee7442fc3ae1
   }
 
   renderLabel(subject) {
@@ -108,8 +161,13 @@ class BasicInfoPage extends React.Component {
   }
 
 
+<<<<<<< HEAD
   renderSwitch() {
       return <SwitchToggle resultOpen={this.state.resultOpen} changeResultOpen={this.changeResultOpen}/>;
+=======
+  renderSwitch(isMultipleChoice) {
+      return <SwitchToggle isMultipleChoice = {isMultipleChoice} changeBasicInfo= {this.changeBasicInfo}/>;
+>>>>>>> 51d422cf5d8701efa304b1f8f925ee7442fc3ae1
   }
 
   renderPlainText(text) {
@@ -129,9 +187,14 @@ class BasicInfoPage extends React.Component {
   }
 
   render() {
+<<<<<<< HEAD
     // console.log("render")
 
     var pollingId = this.state.pollingId;
+=======
+    console.log("render")
+
+>>>>>>> 51d422cf5d8701efa304b1f8f925ee7442fc3ae1
     var basicInfo = this.state.basicInfo;
     var options = this.state.options;
     return (
@@ -157,29 +220,47 @@ class BasicInfoPage extends React.Component {
                   <a><font color="0084ff">{basicInfo.startPoint}</font></a>
                   <button style={{outline:"none", border:"none", background:"transparent", position:"absolute", right:"14px"}}
                           onClick = {() => {
+<<<<<<< HEAD
                             this.props.history.push({pathname: '/mapPage', query: {pollingId: pollingId, basicInfo:basicInfo, options: options, previousPath: this.props.location.pathname}});
+=======
+                            this.props.history.push({pathname: '/mapPage', query: {basicInfo:basicInfo, options: options, previousPath: this.props.location.pathname}});
+>>>>>>> 51d422cf5d8701efa304b1f8f925ee7442fc3ae1
                           }}>
                       <img src= {map_button}  alt="continue" style={{width:"24px", height:"24px"}} />
                   </button>
                 </div>
               </div>
+<<<<<<< HEAD
               <div class="element" style={{position:"relative"}}>
                   {this.renderPlainText("Show Current Result")}
                   <div style={{position:"absolute", left:"318px", top:"8px"}}>{this.renderSwitch(0)}</div>
                   <UnmountClosed isOpened={this.state.resultOpen}>
                     <a><font color="0084ff">here is the current result</font></a>
                   </UnmountClosed>
+=======
+              <div className="element" style={{position:"relative"}}>
+                  {this.renderPlainText("Multiple Choice")}
+                  <div style={{position:"absolute", left:"318px", top:"8px"}}>{this.renderSwitch(basicInfo.isMultipleChoice)}</div>
+>>>>>>> 51d422cf5d8701efa304b1f8f925ee7442fc3ae1
               </div>
           </Scrollbars>
           <div className="bottom"></div>
             <button style={{outline:"none", position:"absolute", padding: "0px", left: "8px", bottom:"5px", border:"none"}}
                     onClick = {() => {
+                      console.log(basicInfo.availableTimeFrom.getTime())
                       if(this.checkIfFieldsNotNull()===false)
                         alert("please fill all fields");
+<<<<<<< HEAD
                       else if(basicInfo.availableTimeFrom >= basicInfo.availableTimeTo)
                         alert("availableTimeFrom should be smaller than availableTimeTo!");
                       else
                         this.props.history.push({pathname: '/optionsPage', query: {pollingId: pollingId, basicInfo: basicInfo, options: options}});
+=======
+                      // else if(basicInfo.availableTimeFrom.getTime() >= basicInfo.availableTimeTo.getTime())
+                      //   alert("availableTimeFrom should be smaller than availableTimeTo!");
+                      else
+                        this.props.history.push({pathname: '/optionsPage', query: {basicInfo: basicInfo, options: options}});
+>>>>>>> 51d422cf5d8701efa304b1f8f925ee7442fc3ae1
                     }}>
                 <img src= {continue_button}  alt="continue" style={{width:"359px", height:"50px"}} />
             </button>
