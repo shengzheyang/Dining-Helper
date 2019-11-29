@@ -25,13 +25,9 @@ router.route('/addPolling').post((req, res) => {
   console.log(basicInfo);
   console.log(options);
 
-<<<<<<< HEAD
   var userId = "myUserId"
   var dbOptions = stateOptions2dbOptions(options, userId)
-=======
 
-  var dbOptions = stateOptions2dbOptions(options, 'myUserId')
->>>>>>> 51d422cf5d8701efa304b1f8f925ee7442fc3ae1
   var contents = [];
   options.map(option => {
     if (option.isVoted) {
