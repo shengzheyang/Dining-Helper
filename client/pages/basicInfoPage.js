@@ -141,12 +141,6 @@ class BasicInfoPage extends React.Component {
       <div style={{position:"relative"}}>
           <Scrollbars autoHide style={{ height:"499px" }}>
               <div className="element">
-                  <div>{this.renderLabel(this.state.userId)}</div>
-                  {/* {this.renderTextInput(basicInfo.subject, "Input Subject Here", basicInfo.isOwner)} */}
-              </div>
-
-
-              <div className="element">
                   <div>{this.renderLabel("Subject")}</div>
                   {this.renderTextInput(basicInfo.subject, "Input Subject Here", basicInfo.isOwner)}
               </div>
@@ -184,7 +178,7 @@ class BasicInfoPage extends React.Component {
             <button style={{outline:"none", position:"absolute", padding: "0px", left: "8px", bottom:"5px", border:"none"}}
                     onClick = {() => {
                       if(this.checkIfFieldsNotNull()===false)
-                        alert("please fill all fields");
+                        alert("please fill all fields. userid" + this.state.userId);
                       else if(basicInfo.availableTimeFrom >= basicInfo.availableTimeTo)
                         alert("availableTimeFrom should be smaller than availableTimeTo!");
                       else
