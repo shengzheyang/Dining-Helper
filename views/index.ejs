@@ -3,16 +3,28 @@
   <head>
     <title>Dining Helper</title>
     <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1">
+    <script src="/bundle.js"></script>
   </head>
   <body>
-    <div id="root"></div>
+    <div id="content"></div>
     <script>
-      window.fbAsyncInit = function() {
-        MessengerExtensions.getContext('541846993263590',
+      <% if (demo) { %>
+      // Use a random demo ID when viewing locally.
+      const userId = Math.floor(Math.random() * 4) + 1;
+      window.attachApp(userId, <%= listId %>, "<%= socketAddress %>");
+    <% } else if (listId) { %>
+      window.extAsyncInit = function() {
+        MessengerExtensions.getContext(
+          '541846993263590',
           function success(context) {
-            window.attachApp(context.psid, context.thread_type)
-          }, null);
+            window.attachApp(
+              context.psid,
+              context.thread_type);
+          }, function error(err) {
+            window.attachApp();
+          });
       };
+    <% } %>
 
       (function(d, s, id){
         var js, fjs = d.getElementsByTagName(s)[0];
@@ -22,7 +34,5 @@
         fjs.parentNode.insertBefore(js, fjs);
       }(document, 'script', 'Messenger'));
     </script>
-    <script src="./bundle.js"></script>
-    <%= listId %>
   </body>
 </html>

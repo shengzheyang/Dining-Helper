@@ -12,33 +12,31 @@ window.attachApp = (viewerId, threadType) => {
 	console.log(apiUri, threadType, viewerId);
 	app = (<App viewerId={viewerId} />);
   
-	ReactDOM.render(app, document.getElementById('root'));
+	ReactDOM.render(app, document.getElementById('content'));
 };
 
 class App extends React.Component {
 	constructor(props){
 		super(props);
-		this.state = {
-			userId:'this.props.viewerId'
+		this.state ={
+			userId: this.props.viewerId
 		}
 	}
 
 	render(){
 		return (
-    	<Router>
-			<div>
-				<Route exact path="/" render={() => (
-					<Redirect to="/basicInfoPage"/>
-					)}/>
-				<Route path="/optionsPage" 
-					render={(props) => <OptionsPage {...props} />} />
-				<Route path="/mapPage" component={MapPage} 
-					render={(props) => <MapPage {...props} />} />
-				<Route path="/basicInfoPage/:pollingId?"  render={(props) => <BasicInfoPage {...props} userId={this.state.userId} />} />
-			</div>
-    	</Router>
-    );
+    	// <Router>
+		// 	<div>
+		// 		<Route exact path="/" render={() => (
+		// 			<Redirect to="/basicInfoPage"/>
+		// 			)}/>
+		// 		<Route path="/optionsPage" 
+		// 			render={(props) => <OptionsPage {...props} />} />
+		// 		<Route path="/mapPage" component={MapPage} 
+		// 			render={(props) => <MapPage {...props} />} />
+		// 		<Route path="/basicInfoPage/:pollingId?"  render={(props) => <BasicInfoPage {...props} />} />
+		// 	</div>
+		// </Router>
+	<div>{this.state.userId}</div>    );
   }
 }
-
-ReactDOM.render(<App />, document.getElementById('root'));
