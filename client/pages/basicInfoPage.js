@@ -82,8 +82,8 @@ class BasicInfoPage extends React.Component {
   componentDidMount() {
     if (this.props.match.params.pollingId) {
       const param = {
+        userId: this.state.userId,
         pollingId: this.props.match.params.pollingId,
-        userId: "myUserId",
       }
       axios.post('http://dining-helper.herokuapp.com/getPollingById', param)
       .then(res => {
@@ -140,7 +140,9 @@ class BasicInfoPage extends React.Component {
     return (
       <div style={{position:"relative"}}>
           <Scrollbars autoHide style={{ height:"499px" }}>
-
+              <div className="element">
+                  <div>{this.renderLabel(this.state.userId)}</div>
+              </div>
             
               <div className="element">
                   <div>{this.renderLabel("Subject")}</div>
@@ -162,7 +164,7 @@ class BasicInfoPage extends React.Component {
                   <a><font color="0084ff">{basicInfo.startPoint}</font></a>
                   <button style={{outline:"none", border:"none", background:"transparent", position:"absolute", right:"14px"}}
                           onClick = {() => {
-                            this.props.history.push({pathname: '/mapPage', query: {pollingId: pollingId, basicInfo:basicInfo, options: options, previousPath: this.props.location.pathname}});
+                            this.props.history.push({pathname: '/mapPage', query: {userId: this.state.userId, pollingId: pollingId, basicInfo:basicInfo, options: options, previousPath: this.props.location.pathname}});
                           }}>
                       <img src= {map_button}  alt="continue" style={{width:"24px", height:"24px"}} />
                   </button>
@@ -184,7 +186,7 @@ class BasicInfoPage extends React.Component {
                       else if(basicInfo.availableTimeFrom >= basicInfo.availableTimeTo)
                         alert("availableTimeFrom should be smaller than availableTimeTo!");
                       else
-                        this.props.history.push({pathname: '/optionsPage', query: {pollingId: pollingId, basicInfo: basicInfo, options: options}});
+                        this.props.history.push({pathname: '/optionsPage', query: {userId: this.state.userId, pollingId: pollingId, basicInfo: basicInfo, options: options}});
                     }}>
                 <img src= {continue_button}  alt="continue" style={{width:"359px", height:"50px"}} />
             </button>

@@ -1,6 +1,3 @@
-
-
-
 // ===== MODULES ===============================================================
 var express = require('express');
 
@@ -25,7 +22,7 @@ router.route('/addPolling').post((req, res) => {
   console.log(basicInfo);
   console.log(options);
 
-  var userId = "myUserId"
+  var userId = req.body.UserId
   var dbOptions = stateOptions2dbOptions(options, userId)
 
   var contents = [];

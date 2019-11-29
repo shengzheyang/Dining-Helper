@@ -34,6 +34,7 @@ class MapPage extends React.Component {
         lat: 48.85,
         lng: 2.35
       },
+      userId: query.userId,
       pollingId: query.pollingId,
       basicInfo: {
         isOwner: query.basicInfo.isOwner,
@@ -77,6 +78,7 @@ class MapPage extends React.Component {
           this.props.history.push({
             pathname: this.state.previousPath,
             query: {
+              userId: this.state.userId,
               pollingId: this.state.pollingId,
               basicInfo: this.state.basicInfo,
               options: this.state.options
@@ -93,6 +95,7 @@ class MapPage extends React.Component {
         this.props.history.push({
           pathname: '/basicInfoPage',
           query: {
+            userId: this.state.userId,
             pollingId: this.state.pollingId,
             basicInfo: this.state.basicInfo,
             options: this.state.options
@@ -197,6 +200,7 @@ class MapPage extends React.Component {
             }}
           >
             <span style={{ padding: 0, margin: 0 }}>
+              {this.state.userId}
               {this.state.name}
               <br />
               {this.state.address}
