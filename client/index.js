@@ -18,6 +18,9 @@ window.attachApp = (viewerId, threadType) => {
 class App extends React.Component {
 	constructor(props){
 		super(props);
+		this.state = {
+			userId = this.props.viewerId
+		}
 	}
 
 	render(){
@@ -31,7 +34,7 @@ class App extends React.Component {
 					render={(props) => <OptionsPage {...props} />} />
 				<Route path="/mapPage" component={MapPage} 
 					render={(props) => <MapPage {...props} />} />
-				<Route path="/basicInfoPage/:pollingId?"  render={(props) => <BasicInfoPage {...props} />} />
+				<Route path="/basicInfoPage/:pollingId?"  render={(props) => <BasicInfoPage {...props} userId={this.state.userId} />} />
 			</div>
     	</Router>
     );
