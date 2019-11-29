@@ -45,6 +45,7 @@ class BasicInfoPage extends React.Component {
       if(params.pollingId) {
         // get polling info from the DB and assign them into states
         this.state = {
+          userId: this.props.userId,
           resultOpen: false,
           userId: this.props.userId,
           pollingId: params.pollingId,
@@ -84,7 +85,6 @@ class BasicInfoPage extends React.Component {
       const param = {
         userId: this.state.userId,
         pollingId: this.props.match.params.pollingId,
-        userId: "myUserId",
       }
       axios.post('https://dining-helper.herokuapp.com/getPollingById', param)
       .then(res => {

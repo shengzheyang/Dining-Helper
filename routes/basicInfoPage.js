@@ -6,15 +6,15 @@ const router = express.Router();
 // http://localhost:5000/basicInfoPage/
 router.get('/', (_, res) => {
   res.render('./index', {
-    demo: process.env.DEMO,
-    listId: null,
+    demo: false,
+    listId: '1',
   });
 });
 
 // http://localhost:5000/basicInfoPage/idexample1
 router.get('/:id', (req, res) => {
   res.render('./index', {
-    demo: process.env.DEMO,
+    demo: false,
     listId: req.params.id,
   });
 });

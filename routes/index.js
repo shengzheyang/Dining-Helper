@@ -1,6 +1,3 @@
-
-
-
 // ===== MODULES ===============================================================
 var express = require('express');
 
@@ -13,8 +10,8 @@ const updateDB = require('../controller/updateDB.js');
 // GET home page
 router.get('/', (_, res) => {
   res.render('./index', {
-    demo: process.env.DEMO,
-    listId: null,
+    demo: false,
+    listId: '1',
   });
 });
 
