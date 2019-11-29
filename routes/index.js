@@ -25,7 +25,7 @@ router.route('/addPolling').post((req, res) => {
   console.log(basicInfo);
   console.log(options);
 
-  var userId = "myUserId"
+  var userId = req.body.userId
   var dbOptions = stateOptions2dbOptions(options, userId)
 
   var contents = [];

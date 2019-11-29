@@ -27,6 +27,7 @@ class BasicInfoPage extends React.Component {
     if(query) {
       console.log('start point', query.basicInfo.startPoint);
       this.state = {
+        userId: query.userId,
         pollingId: query.pollingId,
         resultOpen: false,
         basicInfo: {
@@ -45,6 +46,7 @@ class BasicInfoPage extends React.Component {
         // get polling info from the DB and assign them into states
         this.state = {
           resultOpen: false,
+          userId: this.props.userId,
           pollingId: params.pollingId,
           basicInfo: {
             isOwner: true,
@@ -59,6 +61,7 @@ class BasicInfoPage extends React.Component {
         };
       } else {
         this.state = {
+          userId: this.props.userId,
           pollingId: "",
           resultOpen: false,
           basicInfo: {
@@ -79,10 +82,11 @@ class BasicInfoPage extends React.Component {
   componentDidMount() {
     if (this.props.match.params.pollingId) {
       const param = {
+        userId: this.state.userId,
         pollingId: this.props.match.params.pollingId,
         userId: "myUserId",
       }
-      axios.post('http://dining-helper.herokuapp.com/getPollingById', param)
+      axios.post('https://dining-helper.herokuapp.com/getPollingById', param)
       .then(res => {
         this.setState({basicInfo: res.data.basicInfo, options: res.data.options})
       })
@@ -138,6 +142,9 @@ class BasicInfoPage extends React.Component {
       <div style={{position:"relative"}}>
           <Scrollbars autoHide style={{ height:"499px" }}>
               <div className="element">
+                  <div>{this.renderLabel(this.state.userId)}</div>
+              </div>
+              <div className="element">
                   <div>{this.renderLabel("Subject")}</div>
                   {this.renderTextInput(basicInfo.subject, "Input Subject Here", basicInfo.isOwner)}
               </div>
@@ -157,7 +164,7 @@ class BasicInfoPage extends React.Component {
                   <a><font color="0084ff">{basicInfo.startPoint}</font></a>
                   <button style={{outline:"none", border:"none", background:"transparent", position:"absolute", right:"14px"}}
                           onClick = {() => {
-                            this.props.history.push({pathname: '/mapPage', query: {pollingId: pollingId, basicInfo:basicInfo, options: options, previousPath: this.props.location.pathname}});
+                            this.props.history.push({pathname: '/mapPage', query: {userId: this.state.userId, pollingId: pollingId, basicInfo:basicInfo, options: options, previousPath: this.props.location.pathname}});
                           }}>
                       <img src= {map_button}  alt="continue" style={{width:"24px", height:"24px"}} />
                   </button>
@@ -174,13 +181,12 @@ class BasicInfoPage extends React.Component {
           <div className="bottom"></div>
             <button style={{outline:"none", position:"absolute", padding: "0px", left: "8px", bottom:"5px", border:"none"}}
                     onClick = {() => {
-                      console.log(basicInfo.availableTimeFrom.getTime())
                       if(this.checkIfFieldsNotNull()===false)
-                        alert("please fill all fields");
+                      alert("please fill all fields. User:" + this.state.userId);
                       else if(basicInfo.availableTimeFrom >= basicInfo.availableTimeTo)
                         alert("availableTimeFrom should be smaller than availableTimeTo!");
                       else
-                        this.props.history.push({pathname: '/optionsPage', query: {pollingId: pollingId, basicInfo: basicInfo, options: options}});
+                        this.props.history.push({pathname: '/optionsPage', query: {userId: this.state.userId, pollingId: pollingId, basicInfo: basicInfo, options: options}});
                     }}>
                 <img src= {continue_button}  alt="continue" style={{width:"359px", height:"50px"}} />
             </button>

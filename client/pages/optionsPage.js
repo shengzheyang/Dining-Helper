@@ -14,6 +14,7 @@ class OptionsPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      userId: this.props.location.query.userId,
       pollingId: this.props.location.query.pollingId,
       basicInfo: this.props.location.query.basicInfo,
       options: this.props.location.query.options,
@@ -34,7 +35,7 @@ class OptionsPage extends React.Component {
   }
 
   renderOptionForm() {
-    return <OptionForm pollingId={this.state.pollingId} basicInfo={this.state.basicInfo} options ={this.state.options} setOptions={this.setOptions} history={this.props.history} location={this.props.location}/>;
+    return <OptionForm pollingId={this.state.pollingId} basicInfo={this.state.basicInfo} options ={this.state.options} setOptions={this.setOptions} history={this.props.history} location={this.props.location} userId={this.state.userId} />;
   }
 
   setOptions(options) {
@@ -47,6 +48,9 @@ class OptionsPage extends React.Component {
     return (
         <div style={{position:"relative"}}>
             <Scrollbars autoHide style={{ height:"499px" }}>
+                <div className="element">
+                  <div>{this.renderLabel(this.state.userId)}</div>
+                </div>
                 <div class="element">
                     <div class="label">{this.renderLabel("Subject")}</div>
                     {this.renderPlainText(basicInfo.subject)}
@@ -70,12 +74,12 @@ class OptionsPage extends React.Component {
                 // if changed, resubmit
                 const param = {
                   pollingId: this.state.pollingId,
-                  userId: "myUserId",
+                  userId: this.state.userId,
                 }
                 axios.post(baseURL + '/getPollingById', param)
                 .then(res => {
                   const changedParams = {
-                    userId: "myUserId",
+                    userId: this.state.userId,
                     pollingId: this.state.pollingId,
                     oldPolling: res.data,
                     newPolling: {basicInfo: this.state.basicInfo, options: this.state.options}
@@ -89,12 +93,14 @@ class OptionsPage extends React.Component {
                 })
               } else {
                 const userViewedPolling = {
+                  userId:this.state.userId,
                   basicInfo: this.state.basicInfo,
                   options: this.state.options,
                 }
                 axios.post(baseURL + '/addPolling', userViewedPolling)
                 .then(res => console.log(res.data));
                 // go back to FB views
+                window.MessengerExtensions.requestCloseBrowser(null, null);
               }
             }}
                     style={{outline:"none", position:"absolute", padding: "0px", left: "8px", bottom:"5px", border:"none"}}>

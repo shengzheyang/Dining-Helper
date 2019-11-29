@@ -215,6 +215,7 @@ class OptionForm extends React.Component {
   constructor(props) {
       super(props);
       this.state = {
+        userId: this.props.userId,
         pollingId: this.props.pollingId,
         basicInfo: this.props.basicInfo,
         options: this.props.options,
@@ -283,7 +284,7 @@ class OptionForm extends React.Component {
       }
       <button style={{outline:"none", border:"none", background:"transparent"}}
               onClick = {() => {
-                this.props.history.push({pathname: '/mapPage', query: {pollingId:this.state.pollingId, basicInfo:this.state.basicInfo, options: this.state.options, previousPath: this.props.location.pathname}});
+                this.props.history.push({pathname: '/mapPage', query: {userId: this.state.userId, pollingId:this.state.pollingId, basicInfo:this.state.basicInfo, options: this.state.options, previousPath: this.props.location.pathname}});
               }}>
           <img src= {add_button}  alt="continue" style={{width:"27px", height:"27px"}} />
       </button>
