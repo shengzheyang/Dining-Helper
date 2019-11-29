@@ -27,7 +27,7 @@ class BasicInfoPage extends React.Component {
     if(query) {
       console.log('start point', query.basicInfo.startPoint);
       this.state = {
-        userId: "??",
+        userId: query.userId,
         pollingId: query.pollingId,
         resultOpen: false,
         basicInfo: {
@@ -45,7 +45,7 @@ class BasicInfoPage extends React.Component {
       if(params.pollingId) {
         // get polling info from the DB and assign them into states
         this.state = {
-          userId: "???",
+          userId: this.props.userId,
           resultOpen: false,
           pollingId: params.pollingId,
           basicInfo: {
@@ -140,6 +140,8 @@ class BasicInfoPage extends React.Component {
     return (
       <div style={{position:"relative"}}>
           <Scrollbars autoHide style={{ height:"499px" }}>
+
+            
               <div className="element">
                   <div>{this.renderLabel("Subject")}</div>
                   {this.renderTextInput(basicInfo.subject, "Input Subject Here", basicInfo.isOwner)}

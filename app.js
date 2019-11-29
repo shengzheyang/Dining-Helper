@@ -112,7 +112,10 @@ app.post("/webhook", function(req, res) {
         //   receivedAccountLink(messagingEvent);
         // }
 
-        if (messagingEvent.postback) {
+        if (messagingEvent.message) {
+           receivedMessage(messagingEvent);
+        }
+        else if (messagingEvent.postback) {
           receivedPostback(messagingEvent);
         } else {
           console.log(
