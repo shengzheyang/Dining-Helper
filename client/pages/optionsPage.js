@@ -149,7 +149,7 @@ class OptionsPage extends React.Component {
                 axios.post(baseURL + '/addPolling', userViewedPolling)
                 .then(res => console.log(res.data));
                 // go back to FB views
-                window.MessengerExtensions.requestCloseBrowser(null, null);
+                // window.MessengerExtensions.requestCloseBrowser(null, null);
               }
             }}
                     style={{outline:"none", position:"absolute", padding: "0px", left: "8px", bottom:"5px", border:"none"}}>
