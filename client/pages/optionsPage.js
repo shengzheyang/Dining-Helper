@@ -34,11 +34,36 @@ class OptionsPage extends React.Component {
   }
 
   renderOptionForm() {
-    return <OptionForm pollingId={this.state.pollingId} basicInfo={this.state.basicInfo} options ={this.state.options} setOptions={this.setOptions} history={this.props.history} location={this.props.location}/>;
+    return (
+      <OptionForm basicInfo={this.state.basicInfo} 
+        options ={this.state.options} 
+        setOptions={this.setOptions} 
+        history={this.props.history} 
+        location={this.props.location} />
+    );
   }
 
   setOptions(options) {
     this.setState({options:options});
+  }
+
+
+  optionsPageClick() {
+    // if there is no pollingId concatenated in the URL
+    const userViewedPolling = {
+      basicInfo: this.state.basicInfo,
+      options: this.state.options,
+    }
+
+    console.log(userViewedPolling);
+    // const baseURL = "https://localhost:5000" // locally
+    const baseURL = "https://dining-helper.herokuapp.com" // heroku
+    axios.post(baseURL + '/addPolling', userViewedPolling)
+      .then(res => console.log(res.data));
+
+    // go back to FB views
+
+    window.MessengerExtensions.requestCloseBrowser(null, null);
   }
 
   render() {
@@ -61,44 +86,9 @@ class OptionsPage extends React.Component {
                 </div>
             </Scrollbars>
             <div class="bottom">
-            <button onClick={() => {
-              // do not submit multiple times if data are the same
-
-              const baseURL = "https://dining-helper.herokuapp.com" // heroku
-              if (this.state.pollingId) {
-                // get data from DB & compare data from DB and data about to submit
-                // if changed, resubmit
-                const param = {
-                  pollingId: this.state.pollingId,
-                  userId: "myUserId",
-                }
-                axios.post(baseURL + '/getPollingById', param)
-                .then(res => {
-                  const changedParams = {
-                    userId: "myUserId",
-                    pollingId: this.state.pollingId,
-                    oldPolling: res.data,
-                    newPolling: {basicInfo: this.state.basicInfo, options: this.state.options}
-                  }
-                  // console.log('changedParams', changedParams);
-                  // re-submit
-                  axios.post(baseURL + '/updatePollingIfChanged', changedParams)
-                  .catch(
-                    err => {console.log(err)}
-                  )
-                })
-              } else {
-                const userViewedPolling = {
-                  basicInfo: this.state.basicInfo,
-                  options: this.state.options,
-                }
-                axios.post(baseURL + '/addPolling', userViewedPolling)
-                .then(res => console.log(res.data));
-                // go back to FB views
-              }
-            }}
-                    style={{outline:"none", position:"absolute", padding: "0px", left: "8px", bottom:"5px", border:"none"}}>
-                <img src= {submit_button}  alt="continue" style={{width:"359px", height:"50px"}} />
+            <button onClick={optionsPageClick}
+              style={{outline:"none", position:"absolute", padding: "0px", left: "8px", bottom:"5px", border:"none"}}>
+              <img src= {submit_button}  alt="continue" style={{width:"359px", height:"50px"}} />
             </button></div>
 
         </div>

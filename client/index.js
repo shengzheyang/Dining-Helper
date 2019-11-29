@@ -6,23 +6,33 @@ import MapPage from './pages/mapPage';
 
 import {BrowserRouter as Router, Route, Redirect} from "react-router-dom";
 
+window.attachApp = (viewerId, threadType) => {
+	const apiUri = `https://${window.location.hostname}`;
+	let app;
+	console.log(apiUri, threadType, viewerId);
+	app = (<App viewerId={viewerId} />);
+  
+	ReactDOM.render(app, document.getElementById('root'));
+};
+
 class App extends React.Component {
-	// constructor(props){
-	// 	super(props);
-	// 	this.state.pollingId = listId
-	// }
+	constructor(props){
+		super(props);
+	}
 
 	render(){
-		return(
+		return (
     	<Router>
-    	 <div>
+			<div>
 				<Route exact path="/" render={() => (
 					<Redirect to="/basicInfoPage"/>
-				 )}/>
-        		<Route path="/optionsPage" component={OptionsPage} />
-				<Route path="/mapPage" component={MapPage} />
-				<Route path="/basicInfoPage/:pollingId?" component={BasicInfoPage} />
-    	</div>
+					)}/>
+				<Route path="/optionsPage" 
+					render={(props) => <OptionsPage {...props} />} />
+				<Route path="/mapPage" component={MapPage} 
+					render={(props) => <MapPage {...props} />} />
+				<Route path="/basicInfoPage/:pollingId?"  render={(props) => <BasicInfoPage {...props} />} />
+			</div>
     	</Router>
     );
   }
