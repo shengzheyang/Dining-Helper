@@ -44,7 +44,8 @@ class BasicInfoPage extends React.Component {
           voteRank: [],
           distanceRank: [],
           mutualAvailablity: {filteredAvailableTimeFrom: -1, filteredAvailableTimeTo: -1}
-        }
+        },
+        socketpush: query.socketpush
       };
     } else {
       if(params.pollingId) {
@@ -68,7 +69,8 @@ class BasicInfoPage extends React.Component {
             voteRank: [],
             distanceRank: [],
             mutualAvailablity: {filteredAvailableTimeFrom: -1, filteredAvailableTimeTo: -1}
-          }
+          },
+          socketpush: this.props.socketpush
         };
       } else {
         this.state = {
@@ -89,13 +91,14 @@ class BasicInfoPage extends React.Component {
             voteRank: [],
             distanceRank: [],
             mutualAvailablity: {filteredAvailableTimeFrom: -1, filteredAvailableTimeTo: -1}
-          }
+          },
+          socketpush: this.props.socketpush
         };
       }
     }
   }
 
-  Mount() {
+  componentDidMount() {
     if (this.props.match.params.pollingId) {
       const param = {
         userId: this.state.userId,
@@ -166,6 +169,7 @@ class BasicInfoPage extends React.Component {
     return (
       <div style={{position:"relative"}}>
           <Scrollbars autoHide style={{ height:"499px" }}>
+              
               <div className="element">
                   <div>{this.renderLabel(this.state.userId)}</div>
               </div>
@@ -189,7 +193,7 @@ class BasicInfoPage extends React.Component {
                   <a><font color="0084ff">{basicInfo.startPoint}</font></a>
                   <button style={{outline:"none", border:"none", background:"transparent", position:"absolute", right:"14px"}}
                           onClick = {() => {
-                            this.props.history.push({pathname: '/mapPage', query: {userId: this.state.userId, pollingId: pollingId, basicInfo:basicInfo, options: options, previousPath: this.props.location.pathname}});
+                            this.props.history.push({pathname: '/mapPage', query: {socketpush: this.state.socketpush, userId: this.state.userId, pollingId: pollingId, basicInfo:basicInfo, options: options, previousPath: this.props.location.pathname}});
                           }}>
                       <img src= {map_button}  alt="continue" style={{width:"24px", height:"24px"}} />
                   </button>
@@ -220,20 +224,12 @@ class BasicInfoPage extends React.Component {
                       else if(basicInfo.availableTimeFrom >= basicInfo.availableTimeTo)
                         alert("availableTimeFrom should be smaller than availableTimeTo!");
                       else
-                        this.props.history.push({pathname: '/optionsPage', query: {userId: this.state.userId, pollingId: pollingId, basicInfo: basicInfo, options: options}});
+                        this.props.history.push({pathname: '/optionsPage', query: {socketpush: this.state.socketpush, userId: this.state.userId, pollingId: pollingId, basicInfo: basicInfo, options: options}});
                     }}>
                 <img src= {continue_button}  alt="continue" style={{width:"359px", height:"50px"}} />
             </button>
             {/* <button style={{outline:"none", position:"absolute", padding: "0px", left: "8px", bottom:"5px", border:"none"}}
-                    onClick = {() => {
-                      const param = {
-                        startPoints: ['Luna Grill, 3965 Alton Pkwy Suite B, Irvine, CA 92606, USA', 'Burger King, 2122 South East, Bristol St, Newport Beach, CA 92660, USA'],
-                        endPoint: 'Park West Apartment Homes, 3883 Parkview Ln, Irvine, CA 92612, USA',
-                      }
-                      axios.post('http://localhost:5000/calculateDis', param)
-                      // axios.post('https://dining-helper.herokuapp.com/calculateDis', param)
-                      
-                    }}>
+                    onClick = {this.state.socketpush}>
                 <img src= {continue_button}  alt="continue" style={{width:"359px", height:"50px"}} />
             </button> */}
       </div>

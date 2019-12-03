@@ -46,7 +46,8 @@ class MapPage extends React.Component {
         isMultipleChoice: query.basicInfo.isMultipleChoice
       },
       options: query.options,
-      previousPath: query.previousPath
+      previousPath: query.previousPath,
+      socketpush: query.socketpush
     };
   }
 
@@ -81,7 +82,8 @@ class MapPage extends React.Component {
               userId: this.state.userId,
               pollingId: this.state.pollingId,
               basicInfo: this.state.basicInfo,
-              options: this.state.options
+              options: this.state.options,
+              socketpush: this.state.socketpush
             }
           });
         });
@@ -98,7 +100,8 @@ class MapPage extends React.Component {
             userId: this.state.userId,
             pollingId: this.state.pollingId,
             basicInfo: this.state.basicInfo,
-            options: this.state.options
+            options: this.state.options,
+            socketpush: this.state.socketpush
           }
         });
       });

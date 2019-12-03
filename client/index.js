@@ -5,19 +5,27 @@ import OptionsPage from './pages/optionsPage';
 import MapPage from './pages/mapPage';
 
 import {BrowserRouter as Router, Route, Redirect} from "react-router-dom";
+import { func } from 'prop-types';
 
 window.attachApp = (viewerId, threadType) => {
 	const apiUri = `https://${window.location.hostname}`;
 	let app;
 	console.log(apiUri, threadType, viewerId);
-	app = (<App viewerId={viewerId} />);
-  
+	app = (<App viewerId={viewerId}/>);
 	ReactDOM.render(app, document.getElementById('content'));
 };
 
+
+
 class App extends React.Component {
+
+	socketpush = () => {
+		console.log("this is the socket function")
+	}
+
 	constructor(props){
 		super(props);
+		this.socketpush = this.socketpush.bind(this);
 		this.state ={
 			userId: this.props.viewerId
 		}
@@ -34,7 +42,10 @@ class App extends React.Component {
 					render={(props) => <OptionsPage {...props} />} />
 				<Route path="/mapPage" 
 					render={(props) => <MapPage {...props} />} />
-				<Route path="/basicInfoPage/:pollingId?"  render={(props) => <BasicInfoPage {...props} userId={this.state.userId}/>} />
+				<Route path="/basicInfoPage/:pollingId?"  
+					render={(props) => <BasicInfoPage {...props} 
+					userId={this.state.userId}
+					socketpush={this.socketpush} />} />
 			</div>
 		</Router>
 	);
