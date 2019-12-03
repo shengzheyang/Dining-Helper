@@ -328,6 +328,40 @@ class OptionForm extends React.Component {
   }
 }
 
+function Result(props) {
+  var mutualTimeFrom = new Date(props.result.mutualAvailablity.filteredAvailableTimeFrom).toLocaleString();
+  var mutualTimeTo = new Date(props.result.mutualAvailablity.filteredAvailableTimeTo).toLocaleString();
+  return (
+  <div className="result">
+    <br/>
+    <p>On-time rank with respect to voting:</p >
+    {
+      (props.result.voteRank.length === 0) ? <p>&nbsp; &nbsp; No result</p > :
+        props.result.voteRank.map((val, index) => {
+          return (
+            <p> &nbsp; &nbsp; {index+1}. {val}</p >
+          );
+         })
+    }
+    <p>On-time rank with respect to total distance:</p >
+    {
+      (props.result.distanceRank.length === 0) ? <p>&nbsp; &nbsp; No result</p > :
+        props.result.distanceRank.map((val, index) => {
+          return (
+            <p> &nbsp; &nbsp; {index+1}. {val}</p >
+          );
+         })
+    }
+    <p>Mutual available time:</p >
+    {
+      (props.result.mutualAvailablity.filteredAvailableTimeFrom === -1)
+      ? <p>&nbsp; &nbsp; No  mutual available time or haven't start a polling</p >
+      : <p>&nbsp; &nbsp; {mutualTimeFrom} - {mutualTimeTo}
+        </p >
+    }
+  </div>);
+}
+
 export { Label };
 export { TextInput };
 export { SwitchToggle };
@@ -335,3 +369,4 @@ export { PlainText };
 export { DateTimePicker };
 export { OptionForm };
 export { Option };
+export { Result };

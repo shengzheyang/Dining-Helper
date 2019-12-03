@@ -206,8 +206,6 @@ class MapPage extends React.Component {
             }}
           >
             <span style={{ padding: 0, margin: 0 }}>
-              {this.state.userId}
-              <br />
               {this.state.name}
               <br />
               {this.state.address}

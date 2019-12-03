@@ -43,7 +43,7 @@ router.route("/addPolling").post((req, res) => {
       startPoint: basicInfo.startPoint
     }
   ];
-  pollingId = polling
+  polling
     .startPolling(
       userId,
       basicInfo.subject,
@@ -55,8 +55,8 @@ router.route("/addPolling").post((req, res) => {
     )
     .then(pollingId => {
       polling.voteOptions(userId, pollingId, contents);
+      res.json(pollingId)
     })
-    .then(() => res.json("Polling started!"))
     .catch(err => res.status(400).json("Error: " + err));
 });
 

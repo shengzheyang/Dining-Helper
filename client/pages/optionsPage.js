@@ -56,48 +56,47 @@ class OptionsPage extends React.Component {
   }
 
   optionsPageClick = () => {
-    // do not submit multiple times if data are the same
+    const baseURL = "http://localhost:5000" // local
+    // const baseURL = "https://dining-helper.herokuapp.com" // heroku
 
-    // const baseURL = "http://localhost:5000" // locally
-    const baseURL = "https://dining-helper.herokuapp.com"; // heroku
-
-    // console.log("pollingId:", this.state.pollingId);
     if (this.state.pollingId) {
       // get data from DB & compare data from DB and data about to submit
       // if changed, resubmit
-
       const param = {
         pollingId: this.state.pollingId,
-        userId: this.state.userId
-      };
-      axios.post(baseURL + "/getPollingById", param).then(res => {
+        userId: this.state.userId,
+      }
+      axios.post(baseURL + '/getPollingById', param)
+      .then(res => {
         const changedParams = {
           userId: this.state.userId,
           pollingId: this.state.pollingId,
-          dbOptions: res.data.options,
-          options: this.state.options
-        };
+          oldPolling: res.data,
+          newPolling: {basicInfo: this.state.basicInfo, options: this.state.options}
+        }
         // console.log('changedParams', changedParams);
         // re-submit
-        axios
-          .post(baseURL + "/updatePollingIfChanged", changedParams)
-          .catch(err => {
-            console.log(err);
-          });
-      });
+        axios.post(baseURL + '/updatePollingIfChanged', changedParams)
+        .catch(
+          err => {console.log(err)}
+        )
+      })
     } else {
       const userViewedPolling = {
-        userId: this.state.userId,
+        userId:this.state.userId,
         basicInfo: this.state.basicInfo,
-        options: this.state.options
-      };
-      axios
-        .post(baseURL + "/addPolling", userViewedPolling)
-        .then(res => console.log(res.data));
-
+        options: this.state.options,
+      }
+      axios.post(baseURL + '/addPolling', userViewedPolling)
+      .then(res => console.log(res.data));
       // go back to FB views
-      this.state.socketpush();
-      window.MessengerExtensions.requestCloseBrowser(null, null);
+      // window.MessengerExtensions.requestCloseBrowser(null, null);
+
+      // const message = {
+      //   pollingId: this.state.pollingId,
+      //   senderId: this.state.userId
+      // };
+      // this.state.socketpush(message);
     }
   };
 
@@ -107,9 +106,6 @@ class OptionsPage extends React.Component {
     return (
       <div style={{ position: "relative" }}>
         <Scrollbars autoHide style={{ height: "499px" }}>
-          <div className="element">
-            <div>{this.renderLabel(this.state.userId)}</div>
-          </div>
           <div class="element">
             <div class="label">{this.renderLabel("Subject")}</div>
             {this.renderPlainText(basicInfo.subject)}
@@ -127,52 +123,7 @@ class OptionsPage extends React.Component {
         </Scrollbars>
         <div class="bottom">
           <button
-            onClick={() => {
-              const message = {
-                pollingId: this.state.pollingId,
-                senderId: this.state.userId
-              };
-              this.state.socketpush(message);
-              // () => {
-
-              // // do not submit multiple times if data are the same
-              // const baseURL = "http://localhost:5000" // local
-              // // const baseURL = "https://dining-helper.herokuapp.com" // heroku
-              // if (this.state.pollingId) {
-              //   // get data from DB & compare data from DB and data about to submit
-              //   // if changed, resubmit
-              //   const param = {
-              //     pollingId: this.state.pollingId,
-              //     userId: this.state.userId,
-              //   }
-              //   axios.post(baseURL + '/getPollingById', param)
-              //   .then(res => {
-              //     const changedParams = {
-              //       userId: this.state.userId,
-              //       pollingId: this.state.pollingId,
-              //       oldPolling: res.data,
-              //       newPolling: {basicInfo: this.state.basicInfo, options: this.state.options}
-              //     }
-              //     // console.log('changedParams', changedParams);
-              //     // re-submit
-              //     axios.post(baseURL + '/updatePollingIfChanged', changedParams)
-              //     .catch(
-              //       err => {console.log(err)}
-              //     )
-              //   })
-              // } else {
-              //   const userViewedPolling = {
-              //     userId:this.state.userId,
-              //     basicInfo: this.state.basicInfo,
-              //     options: this.state.options,
-              //   }
-              //   axios.post(baseURL + '/addPolling', userViewedPolling)
-              //   .then(res => console.log(res.data));
-              //   // go back to FB views
-              //   // window.MessengerExtensions.requestCloseBrowser(null, null);
-              // }
-              // }}
-            }}
+            onClick={this.optionsPageClick}
             style={{
               outline: "none",
               position: "absolute",
