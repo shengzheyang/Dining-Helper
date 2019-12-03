@@ -51,7 +51,6 @@ const VALIDATION_TOKEN = process.env.MESSENGER_VALIDATION_TOKEN
 const PAGE_ACCESS_TOKEN = process.env.MESSENGER_PAGE_ACCESS_TOKEN
   ? process.env.MESSENGER_PAGE_ACCESS_TOKEN
   : config.get("pageAccessToken");
-exports.PAGE_ACCESS_TOKEN = PAGE_ACCESS_TOKEN;
 
 // URL where the app is running (include protocol). Used to point to scripts and
 // assets located at this address.

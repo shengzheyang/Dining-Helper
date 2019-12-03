@@ -1,5 +1,8 @@
 const request = require("request");
-const { PAGE_ACCESS_TOKEN } = require("./app");
+const config = require("config");
+const PAGE_ACCESS_TOKEN = process.env.MESSENGER_PAGE_ACCESS_TOKEN
+  ? process.env.MESSENGER_PAGE_ACCESS_TOKEN
+  : config.get("pageAccessToken");
 /*
  * Call the Send API. The message data goes in the body. If successful, we'll
  * get the message id in a response
