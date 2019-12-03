@@ -127,8 +127,12 @@ class OptionsPage extends React.Component {
         </Scrollbars>
         <div class="bottom">
           <button
-            onClick={
-              this.state.socketpush
+            onClick={() => {
+              const message = {
+                pollingId: this.state.pollingId,
+                senderId: this.state.userId
+              };
+              this.state.socketpush(message);
               // () => {
 
               // // do not submit multiple times if data are the same
@@ -168,7 +172,7 @@ class OptionsPage extends React.Component {
               //   // window.MessengerExtensions.requestCloseBrowser(null, null);
               // }
               // }}
-            }
+            }}
             style={{
               outline: "none",
               position: "absolute",

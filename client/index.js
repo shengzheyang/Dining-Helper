@@ -16,7 +16,9 @@ window.attachApp = (viewerId, threadType) => {
 };
 
 class App extends React.Component {
-  socketpush = () => {
+  socketpush = param => {
+    // axios.post('http://localhost:5000/sendMessageToUser', param)
+    axios.post("https://dining-helper.herokuapp.com/sendMessageToUser", param);
     window.MessengerExtensions.requestCloseBrowser(null, null);
     console.log("this is the socket function");
   };
