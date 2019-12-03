@@ -6,6 +6,7 @@ import MapPage from "./pages/mapPage";
 
 import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
 import { func } from "prop-types";
+import axios from "axios";
 
 window.attachApp = (viewerId, threadType) => {
   const apiUri = `https://${window.location.hostname}`;
@@ -18,8 +19,14 @@ window.attachApp = (viewerId, threadType) => {
 class App extends React.Component {
   socketpush = param => {
     // axios.post('http://localhost:5000/sendMessageToUser', param)
-    axios.post("https://dining-helper.herokuapp.com/sendMessageToUser", param);
-    window.MessengerExtensions.requestCloseBrowser(null, null);
+    axios
+      .post("https://dining-helper.herokuapp.com/sendMessageToUser", param)
+      .then(res => {
+        window.MessengerExtensions.requestCloseBrowser(null, null);
+      })
+      .catch(err => {
+        console.log(err);
+      });
     console.log("this is the socket function");
   };
 

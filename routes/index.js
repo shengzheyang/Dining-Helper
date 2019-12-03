@@ -67,7 +67,7 @@ router.route("/getPollingById").post((req, res) => {
 });
 
 router.route("/sendMessageToUser").post((req, res) => {
-  var pollId = req.body.pollingId;
+  var pollId = req.body.pollingId ? req.body.pollingId : 1;
   var senderId = req.body.senderId;
 
   var messageData = {
@@ -80,6 +80,8 @@ router.route("/sendMessageToUser").post((req, res) => {
   };
 
   callSendAPI(messageData);
+  var okmsg = "ok";
+  res.json(okmsg);
 });
 
 router.route("/updatePollingIfChanged").post((req, res) => {
