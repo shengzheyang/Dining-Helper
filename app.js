@@ -20,7 +20,7 @@ const bodyParser = require("body-parser"),
   crypto = require("crypto"),
   express = require("express"),
   https = require("https"),
- = require("request");
+  request = require("request");
 
 var app = express();
 app.set("port", process.env.PORT || 5000);
@@ -117,9 +117,8 @@ app.post("/webhook", function(req, res) {
         // }
 
         if (messagingEvent.message) {
-           receivedMessage(messagingEvent);
-        }
-        else if (messagingEvent.postback) {
+          receivedMessage(messagingEvent);
+        } else if (messagingEvent.postback) {
           receivedPostback(messagingEvent);
         } else {
           console.log(
