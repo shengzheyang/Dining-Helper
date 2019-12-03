@@ -49,6 +49,8 @@ body {
   margin-top: 3px;
   border-color: #d8d8d8;
   font: 15px "Century Gothic", Futura, sans-serif;
+  display: flex;
+  align-items: center;
 }
 
 .element {
