@@ -305,24 +305,23 @@ class BasicInfoPage extends React.Component {
             border: "none"
           }}
           onClick={() => {
-            window.MessengerExtensions.requestCloseBrowser(null, null);
-            // if (this.checkIfFieldsNotNull() === false)
-            //   alert("please fill all fields. User:" + this.state.userId);
-            // else if (basicInfo.availableTimeFrom >= basicInfo.availableTimeTo)
-            //   alert(
-            //     "availableTimeFrom should be smaller than availableTimeTo!"
-            //   );
-            // else
-            //   this.props.history.push({
-            //     pathname: "/optionsPage",
-            //     query: {
-            //       socketpush: this.state.socketpush,
-            //       userId: this.state.userId,
-            //       pollingId: pollingId,
-            //       basicInfo: basicInfo,
-            //       options: options
-            //     }
-            //   });
+            if (this.checkIfFieldsNotNull() === false)
+              alert("please fill all fields. User:" + this.state.userId);
+            else if (basicInfo.availableTimeFrom >= basicInfo.availableTimeTo)
+              alert(
+                "availableTimeFrom should be smaller than availableTimeTo!"
+              );
+            else
+              this.props.history.push({
+                pathname: "/optionsPage",
+                query: {
+                  socketpush: this.state.socketpush,
+                  userId: this.state.userId,
+                  pollingId: pollingId,
+                  basicInfo: basicInfo,
+                  options: options
+                }
+              });
           }}
         >
           <img
