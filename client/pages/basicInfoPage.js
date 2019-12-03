@@ -39,7 +39,12 @@ class BasicInfoPage extends React.Component {
           startPoint: query.basicInfo.startPoint,
           isMultipleChoice: query.basicInfo.isMultipleChoice,
         },
-        options: query.options
+        options: query.options,
+        result: {
+          voteRank: [],
+          distanceRank: [],
+          mutualAvailablity: {filteredAvailableTimeFrom: -1, filteredAvailableTimeTo: -1}
+        }
       };
     } else {
       if(params.pollingId) {
@@ -58,7 +63,12 @@ class BasicInfoPage extends React.Component {
             startPoint: '',
             isMultipleChoice: true,
           },
-          options: []
+          options: [],
+          result: {
+            voteRank: [],
+            distanceRank: [],
+            mutualAvailablity: {filteredAvailableTimeFrom: -1, filteredAvailableTimeTo: -1}
+          }
         };
       } else {
         this.state = {
@@ -74,20 +84,25 @@ class BasicInfoPage extends React.Component {
             startPoint: '',
             isMultipleChoice: true,
           },
-          options: []
+          options: [],
+          result: {
+            voteRank: [],
+            distanceRank: [],
+            mutualAvailablity: {filteredAvailableTimeFrom: -1, filteredAvailableTimeTo: -1}
+          }
         };
       }
     }
   }
 
-  componentDidMount() {
+  Mount() {
     if (this.props.match.params.pollingId) {
       const param = {
         userId: this.state.userId,
         pollingId: this.props.match.params.pollingId,
       }
-      // axios.post('http://localhost:5000/getPollingById', param)
-      axios.post('https://dining-helper.herokuapp.com/getPollingById', param)
+      axios.post('http://localhost:5000/getPollingById', param)
+      // axios.post('https://dining-helper.herokuapp.com/getPollingById', param)
       .then(res => {
         this.setState({basicInfo: res.data.basicInfo, options: res.data.options})
       })
@@ -102,6 +117,15 @@ class BasicInfoPage extends React.Component {
 
   changeResultOpen(newValue) {
     this.setState({resultOpen: newValue});
+    const param = {pollingId: this.state.pollingId}
+    axios.post('http://localhost:5000/getAnalysedResult', param)
+    // axios.post('https://dining-helper.herokuapp.com/getAnalysedResult', this.state.pollingId)
+    .then(res => {
+      console.log("getAnalysedResult:", res)
+      this.setState({
+        result: res.data
+      });
+    })
   }
 
   renderLabel(subject) {
@@ -148,7 +172,7 @@ class BasicInfoPage extends React.Component {
               <div className="element">
                   <div>{this.renderLabel("Subject")}</div>
                   {this.renderTextInput(basicInfo.subject, "Input Subject Here", basicInfo.isOwner)}
-              </div>
+                  </div>
               <div className="element">
                   <div>{this.renderLabel("Polling End Time")}</div>
                   {this.renderDateTimePicker(0, "End Time", basicInfo.pollingEndTime, basicInfo.isOwner)}
@@ -174,8 +198,17 @@ class BasicInfoPage extends React.Component {
               <div class="element" style={{position:"relative"}}>
                   {this.renderPlainText("Show Current Result")}
                   <div style={{position:"absolute", left:"318px", top:"8px"}}>{this.renderSwitch(0)}</div>
+                  
                   <UnmountClosed isOpened={this.state.resultOpen}>
-                    <a><font color="0084ff">here is the current result</font></a>
+                  {/* result: {
+                    voteRank: [],
+                    distanceRank: [],
+                    mutualAvailablity: {filteredAvailableTimeFrom: -1, filteredAvailableTimeTo: -1}
+                  } */}
+                    <a>Rank based on votes:<br/>
+                    
+                    </a>
+                    {/* <a><font color="0084ff">here is the current result</font></a> */}
                   </UnmountClosed>
               </div>
           </Scrollbars>
@@ -191,6 +224,18 @@ class BasicInfoPage extends React.Component {
                     }}>
                 <img src= {continue_button}  alt="continue" style={{width:"359px", height:"50px"}} />
             </button>
+            {/* <button style={{outline:"none", position:"absolute", padding: "0px", left: "8px", bottom:"5px", border:"none"}}
+                    onClick = {() => {
+                      const param = {
+                        startPoints: ['Luna Grill, 3965 Alton Pkwy Suite B, Irvine, CA 92606, USA', 'Burger King, 2122 South East, Bristol St, Newport Beach, CA 92660, USA'],
+                        endPoint: 'Park West Apartment Homes, 3883 Parkview Ln, Irvine, CA 92612, USA',
+                      }
+                      axios.post('http://localhost:5000/calculateDis', param)
+                      // axios.post('https://dining-helper.herokuapp.com/calculateDis', param)
+                      
+                    }}>
+                <img src= {continue_button}  alt="continue" style={{width:"359px", height:"50px"}} />
+            </button> */}
       </div>
     );
   }

@@ -150,8 +150,11 @@ class MapPage extends React.Component {
     const address = place.formatted_address,
       name = place.name,
       latValue = place.geometry.location.lat(),
-      lngValue = place.geometry.location.lng();
+      lngValue = place.geometry.location.lng(),
 
+      opening_hours = place.opening_hours;
+
+    console.log(opening_hours)
     //const content = name + ", " + address;
     //this.addOption(content);
     // Set these values in the state.
@@ -220,7 +223,7 @@ class MapPage extends React.Component {
             onPlaceSelected={this.onAutoCompleteSelected}
             placeholder="Search a restaurant"
             types={[]}
-            fields={["name", "formatted_address", "geometry"]}
+            fields={["name", "formatted_address", "geometry", "opening_hours"]}
           />
         </GoogleMap>
       ))

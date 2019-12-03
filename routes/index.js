@@ -6,6 +6,7 @@ const getUserViewedPollingFromPolling = require('../controller/userViewedPolling
 const polling = require('../models/polling.js');
 const stateOptions2dbOptions = require('../controller/stateOptions2dbOptions.js');
 const updateDB = require('../controller/updateDB.js');
+const getAnalysedResult = require('../controller/resultAnalyser.js');
 
 // GET home page
 router.get('/', (_, res) => {
@@ -54,6 +55,12 @@ router.route('/getPollingById').post((req, res) => {
 
 router.route('/updatePollingIfChanged').post((req, res) => {
   updateDB(req.body.userId, req.body.pollingId, req.body.oldPolling, req.body.newPolling);
+});
+
+router.route('/getAnalysedResult').post((req, res) => {
+  getAnalysedResult(req.body.pollingId)
+  .then(result => res.json(result))
+  .catch(err => res.status(300).json('Error: ' + err));
 });
 
 module.exports = router;
