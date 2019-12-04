@@ -174,7 +174,6 @@ class BasicInfoPage extends React.Component {
           <div className="bottom"></div>
             <button style={{outline:"none", position:"absolute", padding: "0px", left: "8px", bottom:"5px", border:"none"}}
                     onClick = {() => {
-                      console.log(basicInfo.availableTimeFrom.getTime())
                       if(this.checkIfFieldsNotNull()===false)
                         alert("please fill all fields");
                       else if(basicInfo.availableTimeFrom >= basicInfo.availableTimeTo)
