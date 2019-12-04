@@ -25,7 +25,7 @@ class App extends React.Component {
         window.MessengerExtensions.requestCloseBrowser(null, null);
       })
       .catch(err => {
-        console.log(err);
+        console.log("app error is, " + err);
       });
     console.log("this is the socket function");
   };

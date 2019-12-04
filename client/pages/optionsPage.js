@@ -91,19 +91,18 @@ class OptionsPage extends React.Component {
         basicInfo: this.state.basicInfo,
         options: this.state.options
       };
-      let pollIdfromaxios = "";
+
       axios
         .post(baseURL + "/addPolling", userViewedPolling)
         .then(res => {
-          console.log("res:", res.data);
-          pollIdfromaxios = res.data;
+          this.setState({ pollingId: res.data });
         })
         .catch(err => console.log("error is ", err));
       // go back to FB views
       // window.MessengerExtensions.requestCloseBrowser(null, null);
 
       const message = {
-        pollingId: pollIdfromaxios,
+        pollingId: this.state.pollingId,
         senderId: this.state.userId
       };
       this.state.socketpush(message);
@@ -116,6 +115,10 @@ class OptionsPage extends React.Component {
     return (
       <div style={{ position: "relative" }}>
         <Scrollbars autoHide style={{ height: "499px" }}>
+          <div class="element">
+            <div class="label">{this.renderLabel(this.state.pollingId)}</div>
+          </div>
+
           <div class="element">
             <div class="label">{this.renderLabel("Subject")}</div>
             {this.renderPlainText(basicInfo.subject)}
