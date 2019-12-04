@@ -55,7 +55,7 @@ router.route("/addPolling").post((req, res) => {
     )
     .then(pollingId => {
       polling.voteOptions(userId, pollingId, contents);
-      res.json(pollingId)
+      res.json(pollingId);
     })
     .catch(err => res.status(400).json("Error: " + err));
 });
@@ -66,23 +66,66 @@ router.route("/getPollingById").post((req, res) => {
     .catch(err => res.status(400).json("Error: " + err));
 });
 
+/*
+// Section: sending message to user
+*/
+
+const shareListMessage = (apiUri, listId, title, buttonText) => {
+  const urlToList = apiUri + `/${listId}`;
+  console.log({ urlToList });
+  return {
+    attachment: {
+      type: "template",
+      payload: {
+        template_type: "generic",
+        elements: [
+          {
+            title: title,
+            image_url: `${apiUri}/assets/icon-dh.png`,
+            subtitle: "A shared list from Tasks",
+            default_action: {
+              type: "web_url",
+              url: urlToList,
+              messenger_extensions: true
+            },
+            buttons: [openExistingListButton(urlToList, buttonText)]
+          }
+        ]
+      }
+    }
+  };
+};
+
+const openExistingListButton = (listUrl, buttonText = "Edit List") => {
+  return {
+    type: "web_url",
+    title: buttonText,
+    url: listUrl,
+    messenger_extensions: true,
+    webview_height_ratio: "tall"
+  };
+};
+
 router.route("/sendMessageToUser").post((req, res) => {
   var pollId = req.body.pollingId ? req.body.pollingId : 1;
   var senderId = req.body.senderId;
 
-  var messageData = {
+  let apiUri = "https://dining-helper.herokuapp.com/basicInfoPage";
+  var messageData = shareListMessage(apiUri, pollId, "Share Plan", "Share");
+
+  var msg = {
     recipient: {
       id: senderId
     },
-    message: {
-      text: `${pollId} created!`
-    }
+    message: messageData
   };
 
-  callSendAPI(messageData);
+  callSendAPI(msg);
   var okmsg = "ok";
   res.json(okmsg);
 });
+
+//End Section
 
 router.route("/updatePollingIfChanged").post((req, res) => {
   updateDB(
