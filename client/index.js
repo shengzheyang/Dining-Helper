@@ -18,14 +18,19 @@ window.attachApp = (viewerId, threadType) => {
 
 class App extends React.Component {
   socketpush = param => {
-    // axios.post('http://localhost:5000/sendMessageToUser', param)
-    axios.post("https://dining-helper.herokuapp.com/sendMessageToUser", param)
-      .then(res => {
-        window.MessengerExtensions.requestCloseBrowser(null, null);
-      })
-      .catch(err => {
-        console.log("app error is, " + err);
-      });
+    //axios.post('http://localhost:5000/sendMessageToUser', param)
+    if (param.isOwner === true) {
+      axios
+        .post("https://dining-helper.herokuapp.com/sendMessageToUser", param)
+        .then(res => {
+          window.MessengerExtensions.requestCloseBrowser(null, null);
+        })
+        .catch(err => {
+          console.log("app error is, " + err);
+        });
+    } else {
+      window.MessengerExtensions.requestCloseBrowser(null, null);
+    }
     console.log("this is the socket function");
   };
 

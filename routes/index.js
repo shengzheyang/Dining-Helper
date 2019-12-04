@@ -74,7 +74,7 @@ router.route("/getPollingById").post((req, res) => {
 // Section: sending message to user
 */
 
-const shareListMessage = (apiUri, listId, title, buttonText) => {
+const shareListMessage = (apiUri, listId, title, subtitle, buttonText) => {
   const urlToList = apiUri + `/${listId}`;
   console.log({ urlToList });
   return {
@@ -86,7 +86,7 @@ const shareListMessage = (apiUri, listId, title, buttonText) => {
           {
             title: title,
             image_url: `${apiUri}/assets/icon-dh.png`,
-            subtitle: "A shared list from Tasks",
+            subtitle: subtitle,
             default_action: {
               type: "web_url",
               url: urlToList,
@@ -112,11 +112,30 @@ const openExistingListButton = (listUrl, buttonText = "Edit List") => {
 
 router.route("/sendMessageToUser").post((req, res) => {
   console.log("This is req.body, " + JSON.stringify(req.body));
-  var pollId = req.body.pollingId ? req.body.pollingId : 1;
+  var pollId = req.body.pollingId;
   var senderId = req.body.senderId;
+  var isOwner = req.body.isOwner;
+  var subject = req.body.subject;
 
   let apiUri = "https://dining-helper.herokuapp.com/basicInfoPage";
-  var messageData = shareListMessage(apiUri, pollId, "Share Plan", "Share");
+  var messageData = {};
+  if (isOwner === true) {
+    messageData = shareListMessage(
+      apiUri,
+      pollId,
+      subject,
+      "Share plan with your friends",
+      "Share"
+    );
+  } else {
+    messageData = shareListMessage(
+      apiUri,
+      pollId,
+      subject,
+      "Add your options to the plan",
+      "Open"
+    );
+  }
 
   var msg = {
     recipient: {

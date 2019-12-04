@@ -98,7 +98,9 @@ class OptionsPage extends React.Component {
           this.setState({ pollingId: res.data });
           const message = {
             pollingId: res.data,
-            senderId: this.state.userId
+            senderId: this.state.userId,
+            isOwner: this.state.basicInfo.isOwner,
+            subject: this.state.basicInfo.subject
           };
           this.state.socketpush(message);
         })
