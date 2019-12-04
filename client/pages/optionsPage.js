@@ -67,7 +67,8 @@ class OptionsPage extends React.Component {
         pollingId: this.state.pollingId,
         userId: this.state.userId
       };
-      axios.post(baseURL + "/getPollingById", param).then(res => {
+      axios.post(baseURL + "/getPollingById", param)
+      .then(res => {
         const changedParams = {
           userId: this.state.userId,
           pollingId: this.state.pollingId,
@@ -80,12 +81,11 @@ class OptionsPage extends React.Component {
         // re-submit
         axios
           .post(baseURL + "/updatePollingIfChanged", changedParams)
-          .then(res => {
-            window.MessengerExtensions.requestCloseBrowser(null, null);
-          })
           .catch(err => {
             console.log(err);
           });
+      }).then(() => {
+        window.MessengerExtensions.requestCloseBrowser(null, null);
       });
     } else {
       const userViewedPolling = {
