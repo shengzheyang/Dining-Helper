@@ -91,15 +91,16 @@ class OptionsPage extends React.Component {
         basicInfo: this.state.basicInfo,
         options: this.state.options
       };
+      let pollIdfromaxios = "";
       axios.post(baseURL + "/addPolling", userViewedPolling).then(res => {
         console.log("res:", res.data);
-        this.setState({ pollingId: res.data });
+        pollIdfromaxios = res.data;
       });
       // go back to FB views
       // window.MessengerExtensions.requestCloseBrowser(null, null);
-
+      console.log("pollIdfromaxios is " + pollIdfromaxios);
       const message = {
-        pollingId: this.state.pollingId,
+        pollingId: pollIdfromaxios,
         senderId: this.state.userId
       };
       this.state.socketpush(message);
