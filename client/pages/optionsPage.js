@@ -57,7 +57,7 @@ class OptionsPage extends React.Component {
   }
 
   optionsPageClick = () => {
-    //const baseURL = "http://localhost:5000"; // local
+    // const baseURL = "http://localhost:5000"; // local
     const baseURL = "https://dining-helper.herokuapp.com"; // heroku
 
     if (this.state.pollingId) {
@@ -114,10 +114,6 @@ class OptionsPage extends React.Component {
     return (
       <div style={{ position: "relative" }}>
         <Scrollbars autoHide style={{ height: "499px" }}>
-          <div class="element">
-            <div class="label">{this.renderLabel(this.state.pollingId)}</div>
-          </div>
-
           <div class="element">
             <div class="label">{this.renderLabel("Subject")}</div>
             {this.renderPlainText(basicInfo.subject)}

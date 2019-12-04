@@ -63,7 +63,10 @@ router.route("/addPolling").post((req, res) => {
 
 router.route("/getPollingById").post((req, res) => {
   getUserViewedPollingFromPolling(req.body.pollingId, req.body.userId)
-    .then(polling => res.json(polling))
+    .then(polling => {
+      console.log(polling);
+      res.json(polling);
+    })
     .catch(err => res.status(400).json("Error: " + err));
 });
 

@@ -7,8 +7,8 @@ const getUserViewedPollingFromPolling = async (pollingId, userId) => {
       isOwner: undefined,
       subject: onePolling.subject,
       pollingEndTime: onePolling.pollingEndTime,
-      availableTimeFrom: undefined,
-      availableTimeTo: undefined,
+      availableTimeFrom: Date.now(),
+      availableTimeTo: Date.now(),
       startPoint: undefined
     },
     options: [],

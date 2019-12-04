@@ -21,18 +21,18 @@ class MapPage extends React.Component {
     var query = this.props.location.query;
     this.state = {
       // keep record of the restaurant info
-      address: "2190 Barranca Pkwy, Irvine, CA 92606",
-      name: "",
+      address: "Irvine, CA 92697, USA",
+      name: "University of California Irvine",
       // center of the map
       // the original latlng is just a random value
       mapPosition: {
-        lat: 48.85,
-        lng: 2.35
+        lat: 33.640495,
+        lng: -117.844296
       },
       // where to place the marker
       markerPosition: {
-        lat: 48.85,
-        lng: 2.35
+        lat: 33.640495,
+        lng: -117.844296
       },
       userId: query.userId,
       pollingId: query.pollingId,
@@ -224,7 +224,8 @@ class MapPage extends React.Component {
             onPlaceSelected={this.onAutoCompleteSelected}
             placeholder="Search a restaurant"
             types={[]}
-            fields={["name", "formatted_address", "geometry", "opening_hours"]}
+            fields={["name", "formatted_address", "geometry"]}
+            componentRestrictions={{country: "us"}}
           />
         </GoogleMap>
       ))
