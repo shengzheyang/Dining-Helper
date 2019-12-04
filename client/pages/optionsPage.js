@@ -92,9 +92,8 @@ class OptionsPage extends React.Component {
         options: this.state.options
       };
       axios.post(baseURL + "/addPolling", userViewedPolling).then(res => {
-        console.log("res:", res);
-        console.log("util inspect: ", util.inspect(res));
-        this.setState({ pollingId: res.data.pollingId });
+        console.log("res:", res.data);
+        this.setState({ pollingId: res.data });
       });
       // go back to FB views
       // window.MessengerExtensions.requestCloseBrowser(null, null);
