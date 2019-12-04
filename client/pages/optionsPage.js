@@ -67,26 +67,28 @@ class OptionsPage extends React.Component {
         pollingId: this.state.pollingId,
         userId: this.state.userId
       };
-      axios.post(baseURL + "/getPollingById", param)
-      .then(res => {
-        const changedParams = {
-          userId: this.state.userId,
-          pollingId: this.state.pollingId,
-          oldPolling: res.data,
-          newPolling: {
-            basicInfo: this.state.basicInfo,
-            options: this.state.options
-          }
-        };
-        // re-submit
-        axios
-          .post(baseURL + "/updatePollingIfChanged", changedParams)
-          .catch(err => {
-            console.log(err);
-          });
-      }).then(() => {
-        window.MessengerExtensions.requestCloseBrowser(null, null);
-      });
+      axios
+        .post(baseURL + "/getPollingById", param)
+        .then(res => {
+          const changedParams = {
+            userId: this.state.userId,
+            pollingId: this.state.pollingId,
+            oldPolling: res.data,
+            newPolling: {
+              basicInfo: this.state.basicInfo,
+              options: this.state.options
+            }
+          };
+          // re-submit
+          axios
+            .post(baseURL + "/updatePollingIfChanged", changedParams)
+            .catch(err => {
+              console.log(err);
+            });
+        })
+        .then(() => {
+          window.MessengerExtensions.requestCloseBrowser(null, null);
+        });
     } else {
       const userViewedPolling = {
         userId: this.state.userId,

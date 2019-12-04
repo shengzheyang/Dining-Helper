@@ -118,33 +118,32 @@ router.route("/sendMessageToUser").post((req, res) => {
   var subject = req.body.subject;
 
   let apiUri = "https://dining-helper.herokuapp.com/basicInfoPage";
-  var messageData = {};
-  if (isOwner === true) {
-    messageData = shareListMessage(
-      apiUri,
-      pollId,
-      subject,
-      "Share plan with your friends",
-      "Share"
-    );
-  } else {
-    messageData = shareListMessage(
-      apiUri,
-      pollId,
-      subject,
-      "Add your options to the plan",
-      "Open"
-    );
-  }
+  var messageData = shareListMessage(
+    apiUri,
+    pollId,
+    subject,
+    "Add your options to the plan",
+    "Open"
+  );
 
-  var msg = {
+  var msg1 = {
+    recipient: {
+      id: senderId
+    },
+    message: {
+      text: "Share this plan with your friends"
+    }
+  };
+
+  var msg2 = {
     recipient: {
       id: senderId
     },
     message: messageData
   };
 
-  callSendAPI(msg);
+  callSendAPI(msg1);
+  callSendAPI(msg2);
   var okmsg = "ok";
   res.json(okmsg);
 });
