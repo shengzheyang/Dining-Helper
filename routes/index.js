@@ -55,6 +55,7 @@ router.route("/addPolling").post((req, res) => {
     )
     .then(pollingId => {
       polling.voteOptions(userId, pollingId, contents);
+      console.log("pollingid is set to" + `${pollingId}`);
       res.json(pollingId);
     })
     .catch(err => res.status(400).json("Error: " + err));

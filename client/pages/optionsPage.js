@@ -9,6 +9,7 @@ import { OptionForm } from "../components/components";
 import { Option } from "../components/components";
 
 import * as submit_button from "../submit.png";
+var util = require("util");
 
 class OptionsPage extends React.Component {
   constructor(props) {
@@ -91,7 +92,8 @@ class OptionsPage extends React.Component {
         options: this.state.options
       };
       axios.post(baseURL + "/addPolling", userViewedPolling).then(res => {
-        console.log(res.data);
+        console.log("res:", res);
+        console.log("util inspect: ", util.inspect(res));
         this.setState({ pollingId: res.data.pollingId });
       });
       // go back to FB views
