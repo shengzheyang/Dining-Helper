@@ -29,8 +29,6 @@ body {
   border-top: 0.5px solid;
   border-bottom: 0.5px solid;
   padding-left: 14px;
-  margin-top: -0.5px;
-  margin-bottom:  -0.5px;
   display: flex;
   align-items: center;
   border-color: #d8d8d8;
@@ -48,9 +46,11 @@ body {
   border-right: 0px;
   border-top: 0.5px solid;
   border-bottom: 0.5px solid;
-  margin-top: 3px;
+  /* margin-top: 0px; */
   border-color: #d8d8d8;
   font: 15px "Century Gothic", Futura, sans-serif;
+  display: flex;
+  align-items: center;
 }
 
 .element {
@@ -66,7 +66,6 @@ body {
   border-top: 0.5px solid;
   border-bottom: 0.5px solid;
   border-color: #d8d8d8;
-  margin-top: -0.5px;
   margin-bottom:  -0.5px;
   display: flex;
   align-items: center;
@@ -79,6 +78,15 @@ body {
   border-left: 0px;
   border-right: 0px;
   border-top: 0.5px solid;
+  border-bottom: 0.5px solid;
+  border-color: #d8d8d8;
+}
+
+.result {
+  width: 375px;
+  height: auto;
+  background: #FFFFFF;
+  padding-left: 14px;
   border-bottom: 0.5px solid;
   border-color: #d8d8d8;
 }

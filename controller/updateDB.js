@@ -18,7 +18,7 @@ const updateDB = (userId, pollingId, oldPolling, newPolling) => {
     polling.changeSubject(userId, pollingId, newBasicInfo.subject);
   if(oldBasicInfo.pollingEndTime !== newBasicInfo.pollingEndTime)
     polling.changePollingEndTime(userId, pollingId, newBasicInfo.pollingEndTime);
-  if(oldBasicInfo.availableTimeFrom === undefined && oldBasicInfo.availableTimeTo === undefined && oldBasicInfo.startPoint === undefined){
+  if(oldBasicInfo.startPoint === undefined){
     polling.addUsersInfo(pollingId, [{
       userId: userId,
       availableTimeFrom: newBasicInfo.availableTimeFrom,

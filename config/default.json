@@ -1,6 +1,6 @@
 {
-    "appSecret": "a82ba3034c3e6642b4fae709d7bbe4e5",
-    "pageAccessToken": "EAAHszpWOWZBYBAMZBpxn59fusZB2wFexRk95GNgPnXY7qZA3nE4LpYjpXZAg3uBZCBxDZBuvdtK0VbyK8uc4QuMpOjAEUZArZBKAHxZCvuvLlYtRFCpxkGRt6LCPZC77TZAubxZBlDPNNF8K63gNuOVybh8aoPZB7yLXGLHrxXropnNia19N34TRP60S8c",
-    "validationToken": "TOKEN",
-    "serverURL": "https://dining-helper.herokuapp.com/"
+  "appSecret": "a82ba3034c3e6642b4fae709d7bbe4e5",
+  "pageAccessToken": "EAAHszpWOWZBYBAH3NeWD5sTbB9vJCxWZC17av2sul8gZA2YXmas7Cg7dOYg7fscPZB61BZCxlJujs4A1LMkCfK3ptVf6adi7zog49LPDudjBDEcSOUaxBCJlfiHwmbBl8S2WjZAlWgRJNAZCP5nEJzLfK0gaPhOLmngfznhY5mCkMvqBJ4tkQit",
+  "validationToken": "TOKEN",
+  "serverURL": "https://dining-helper.herokuapp.com/"
 }

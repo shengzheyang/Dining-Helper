@@ -21,19 +21,20 @@ class MapPage extends React.Component {
     var query = this.props.location.query;
     this.state = {
       // keep record of the restaurant info
-      address: "2190 Barranca Pkwy, Irvine, CA 92606",
-      name: "",
+      address: "Irvine, CA 92697, USA",
+      name: "University of California Irvine",
       // center of the map
       // the original latlng is just a random value
       mapPosition: {
-        lat: 48.85,
-        lng: 2.35
+        lat: 33.640495,
+        lng: -117.844296
       },
       // where to place the marker
       markerPosition: {
-        lat: 48.85,
-        lng: 2.35
+        lat: 33.640495,
+        lng: -117.844296
       },
+      userId: query.userId,
       pollingId: query.pollingId,
       basicInfo: {
         isOwner: query.basicInfo.isOwner,
@@ -45,7 +46,8 @@ class MapPage extends React.Component {
         isMultipleChoice: query.basicInfo.isMultipleChoice
       },
       options: query.options,
-      previousPath: query.previousPath
+      previousPath: query.previousPath,
+      socketpush: query.socketpush
     };
   }
 
@@ -77,9 +79,11 @@ class MapPage extends React.Component {
           this.props.history.push({
             pathname: this.state.previousPath,
             query: {
+              userId: this.state.userId,
               pollingId: this.state.pollingId,
               basicInfo: this.state.basicInfo,
-              options: this.state.options
+              options: this.state.options,
+              socketpush: this.state.socketpush
             }
           });
         });
@@ -93,9 +97,11 @@ class MapPage extends React.Component {
         this.props.history.push({
           pathname: '/basicInfoPage',
           query: {
+            userId: this.state.userId,
             pollingId: this.state.pollingId,
             basicInfo: this.state.basicInfo,
-            options: this.state.options
+            options: this.state.options,
+            socketpush: this.state.socketpush
           }
         });
       });
@@ -147,8 +153,11 @@ class MapPage extends React.Component {
     const address = place.formatted_address,
       name = place.name,
       latValue = place.geometry.location.lat(),
-      lngValue = place.geometry.location.lng();
+      lngValue = place.geometry.location.lng(),
 
+      opening_hours = place.opening_hours;
+
+    console.log(opening_hours)
     //const content = name + ", " + address;
     //this.addOption(content);
     // Set these values in the state.
@@ -216,6 +225,7 @@ class MapPage extends React.Component {
             placeholder="Search a restaurant"
             types={[]}
             fields={["name", "formatted_address", "geometry"]}
+            componentRestrictions={{country: "us"}}
           />
         </GoogleMap>
       ))

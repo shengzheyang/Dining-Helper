@@ -9,6 +9,9 @@
 
 /* jshint node: true, devel: true */
 "use strict";
+
+const { callSendAPI } = require("./callSendAPI");
+
 var index = require("./routes/index");
 var basicInfoPage = require("./routes/basicInfoPage");
 
@@ -112,7 +115,9 @@ app.post("/webhook", function(req, res) {
         //   receivedAccountLink(messagingEvent);
         // }
 
-        if (messagingEvent.postback) {
+        if (messagingEvent.message) {
+          receivedMessage(messagingEvent);
+        } else if (messagingEvent.postback) {
           receivedPostback(messagingEvent);
         } else {
           console.log(
@@ -949,48 +954,6 @@ function sendAccountLinking(recipientId) {
   };
 
   callSendAPI(messageData);
-}
-
-/*
- * Call the Send API. The message data goes in the body. If successful, we'll
- * get the message id in a response
- *
- */
-function callSendAPI(messageData) {
-  request(
-    {
-      uri: "https://graph.facebook.com/v2.6/me/messages",
-      qs: { access_token: PAGE_ACCESS_TOKEN },
-      method: "POST",
-      json: messageData
-    },
-    function(error, response, body) {
-      if (!error && response.statusCode == 200) {
-        var recipientId = body.recipient_id;
-        var messageId = body.message_id;
-
-        if (messageId) {
-          console.log(
-            "Successfully sent message with id %s to recipient %s",
-            messageId,
-            recipientId
-          );
-        } else {
-          console.log(
-            "Successfully called Send API for recipient %s",
-            recipientId
-          );
-        }
-      } else {
-        console.error(
-          "Failed calling Send API",
-          response.statusCode,
-          response.statusMessage,
-          body.error
-        );
-      }
-    }
-  );
 }
 
 // Start server
