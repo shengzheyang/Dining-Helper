@@ -96,16 +96,15 @@ class OptionsPage extends React.Component {
         .post(baseURL + "/addPolling", userViewedPolling)
         .then(res => {
           this.setState({ pollingId: res.data });
+          const message = {
+            pollingId: res.data,
+            senderId: this.state.userId
+          };
+          this.state.socketpush(message);
         })
         .catch(err => console.log("error is ", err));
       // go back to FB views
       // window.MessengerExtensions.requestCloseBrowser(null, null);
-
-      const message = {
-        pollingId: this.state.pollingId,
-        senderId: this.state.userId
-      };
-      this.state.socketpush(message);
     }
   };
 
