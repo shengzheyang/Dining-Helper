@@ -107,6 +107,7 @@ const openExistingListButton = (listUrl, buttonText = "Edit List") => {
 };
 
 router.route("/sendMessageToUser").post((req, res) => {
+  console.log(JSON.stringify(req));
   var pollId = req.body.pollingId ? req.body.pollingId : 1;
   var senderId = req.body.senderId;
 
