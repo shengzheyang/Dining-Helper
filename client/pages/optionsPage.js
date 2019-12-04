@@ -77,10 +77,12 @@ class OptionsPage extends React.Component {
             options: this.state.options
           }
         };
-        // console.log('changedParams', changedParams);
         // re-submit
         axios
           .post(baseURL + "/updatePollingIfChanged", changedParams)
+          .then(res => {
+            window.MessengerExtensions.requestCloseBrowser(null, null);
+          })
           .catch(err => {
             console.log(err);
           });

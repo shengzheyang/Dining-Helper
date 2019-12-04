@@ -321,10 +321,6 @@ class BasicInfoPage extends React.Component {
             style={{ width: "359px", height: "50px" }}
           />
         </button>
-        {/* <button style={{outline:"none", position:"absolute", padding: "0px", left: "8px", bottom:"5px", border:"none"}}
-                    onClick = {this.state.socketpush}>
-                <img src= {continue_button}  alt="continue" style={{width:"359px", height:"50px"}} />
-            </button> */}
       </div>
     );
   }
