@@ -92,13 +92,16 @@ class OptionsPage extends React.Component {
         options: this.state.options
       };
       let pollIdfromaxios = "";
-      axios.post(baseURL + "/addPolling", userViewedPolling).then(res => {
-        console.log("res:", res.data);
-        pollIdfromaxios = res.data;
-      });
+      axios
+        .post(baseURL + "/addPolling", userViewedPolling)
+        .then(res => {
+          console.log("res:", res.data);
+          pollIdfromaxios = res.data;
+        })
+        .catch(err => console.log("error is ", err));
       // go back to FB views
       // window.MessengerExtensions.requestCloseBrowser(null, null);
-      console.log("pollIdfromaxios is " + pollIdfromaxios);
+
       const message = {
         pollingId: pollIdfromaxios,
         senderId: this.state.userId
