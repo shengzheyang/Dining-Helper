@@ -276,7 +276,7 @@ class BasicInfoPage extends React.Component {
           </div>
           <div class="element" style={{ position: "relative" }}>
             {this.renderPlainText("Show Current Result")}
-            <div style={{ position: "absolute", left: "318px", top: "8px" }}>
+            <div style={{ position:"absolute", left: "85vw", top: "2vh" }}>
               {this.renderSwitch(0)}
             </div>
 
