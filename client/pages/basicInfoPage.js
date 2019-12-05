@@ -113,8 +113,8 @@ class BasicInfoPage extends React.Component {
         userId: this.state.userId,
         pollingId: this.props.match.params.pollingId
       };
-      // axios.post('http://localhost:5000/getPollingById', param)
-      axios.post("https://dining-helper.herokuapp.com/getPollingById", param)
+      axios.post('http://localhost:5000/getPollingById', param)
+      // axios.post("https://dining-helper.herokuapp.com/getPollingById", param)
         .then(res => {
           this.setState({
             basicInfo: res.data.basicInfo,
@@ -133,8 +133,8 @@ class BasicInfoPage extends React.Component {
   changeResultOpen(newValue) {
     this.setState({ resultOpen: newValue });
     const param = { pollingId: this.state.pollingId };
-    // axios.post("http://localhost:5000/getAnalysedResult", param)
-    axios.post("https://dining-helper.herokuapp.com/getAnalysedResult", param)
+    axios.post("http://localhost:5000/getAnalysedResult", param)
+    // axios.post("https://dining-helper.herokuapp.com/getAnalysedResult", param)
       .then(res => {
         console.log("getAnalysedResult:", res);
         this.setState({

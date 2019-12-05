@@ -2,8 +2,10 @@ body {
   font: 15px "Century Gothic", Futura, sans-serif;
   margin: 0px;
   /* border: 0.5px solid #333; */
-  width: 375px;
-  height: 559px;
+  /* width: 375px;
+  height: 559px; */
+  width: 100vw;
+  height: 100vh;
   background-color: #f7f7f7;
 }
 
@@ -19,8 +21,10 @@ body {
 }
 
 .plaintext {
-  height: 46px;
-  width: 375px;
+  /* height: 46px;
+  width: 375px; */
+  width: 100vw;
+  height: 8vh;
   background-color: #ffffff;
   padding-top: 0px;
   padding-bottom: 0px;
@@ -36,8 +40,10 @@ body {
 }
 
 .inputbox {
-  height: 46px;
-  width: 375px;
+  /* height: 46px;
+  width: 375px; */
+  width: 100vw;
+  height: 8vh;
   background-color: #fff;
   padding-top: 0px;
   padding-bottom: 0px;
@@ -58,8 +64,10 @@ body {
 }
 
 .option {
-  width: 375px;
-  height: 46px;
+  /* width: 375px;
+  height: 46px; */
+  width: 100vw;
+  height: 8vh;
   padding-left: 14px;
   position: relative;
   background: #FFFFFF;
@@ -72,8 +80,10 @@ body {
 }
 
 .bottom {
-  width: 375px;
-  height: 60px;
+  /* width: 375px;
+  height: 60px; */
+  width: 100vw;
+  height: 11vh;
   background: #FFFFFF;
   border-left: 0px;
   border-right: 0px;
@@ -83,8 +93,10 @@ body {
 }
 
 .result {
-  width: 375px;
-  height: auto;
+  /* width: 375px;
+  height: auto; */
+  width: 100vw;
+  height: 8vh;
   background: #FFFFFF;
   padding-left: 14px;
   border-bottom: 0.5px solid;
@@ -94,8 +106,10 @@ body {
 a {
   background-color: #FFFFFF;
   display:block;
-  width: 375px;
-  height: 46px;
+  /* width: 375px;
+  height: 46px; */
+  width: 100vw;
+  height: 8vh;
   padding-top: 0px;
   padding-bottom: 0px;
   border-left: 0px;
@@ -109,8 +123,10 @@ a {
 }
 
 .name {
-  height: 46px;
-  width: 375px;
+  /* height: 46px;
+  width: 375px; */
+  width: 100vw;
+  height: 8vh;
   background-color: #fff;
   padding-top: 0px;
   padding-bottom: 0px;

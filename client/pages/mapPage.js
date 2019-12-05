@@ -236,7 +236,7 @@ class MapPage extends React.Component {
         <AsyncMap
           googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyBTBQq3meN2QqOruFQ--ueYgHgoIWxZqbY&libraries=places"
           loadingElement={<div style={{ height: `100%` }} />}
-          containerElement={<div style={{ height: "574px", width: "375px" }} />}
+          containerElement={<div style={{ width: "100vw", height: "100vh" }} />}
           mapElement={<div style={{ height: `100%` }} />}
         />
 

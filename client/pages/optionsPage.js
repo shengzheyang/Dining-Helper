@@ -57,8 +57,8 @@ class OptionsPage extends React.Component {
   }
 
   optionsPageClick = () => {
-    // const baseURL = "http://localhost:5000"; // local
-    const baseURL = "https://dining-helper.herokuapp.com"; // heroku
+    const baseURL = "http://localhost:5000"; // local
+    // const baseURL = "https://dining-helper.herokuapp.com"; // heroku
 
     if (this.state.pollingId) {
       // get data from DB & compare data from DB and data about to submit
