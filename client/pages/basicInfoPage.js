@@ -298,12 +298,12 @@ class BasicInfoPage extends React.Component {
             <div style={{ position: "absolute", right: "14px" }}>
               {this.renderSwitch(0)}
             </div>
-
-            <UnmountClosed isOpened={this.state.resultOpen}>
-              {this.renderResult()}
-            </UnmountClosed>
           </div>
+          <UnmountClosed isOpened={this.state.resultOpen}>
+            {this.renderResult()}
+          </UnmountClosed>
         </Scrollbars>
+        
         <div className="bottom">
         <button
           style={{
