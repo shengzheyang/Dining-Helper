@@ -113,8 +113,8 @@ class BasicInfoPage extends React.Component {
         userId: this.state.userId,
         pollingId: this.props.match.params.pollingId
       };
-      axios.post('http://localhost:5000/getPollingById', param)
-      // axios.post("https://dining-helper.herokuapp.com/getPollingById", param)
+      // axios.post('http://localhost:5000/getPollingById', param)
+      axios.post("https://dining-helper.herokuapp.com/getPollingById", param)
         .then(res => {
           this.setState({
             basicInfo: res.data.basicInfo,
@@ -133,8 +133,8 @@ class BasicInfoPage extends React.Component {
   changeResultOpen(newValue) {
     this.setState({ resultOpen: newValue });
     const param = { pollingId: this.state.pollingId };
-    axios.post("http://localhost:5000/getAnalysedResult", param)
-    // axios.post("https://dining-helper.herokuapp.com/getAnalysedResult", param)
+    // axios.post("http://localhost:5000/getAnalysedResult", param)
+    axios.post("https://dining-helper.herokuapp.com/getAnalysedResult", param)
       .then(res => {
         console.log("getAnalysedResult:", res);
         this.setState({
@@ -193,15 +193,46 @@ class BasicInfoPage extends React.Component {
     else return false;
   }
 
-  render() {
-    // console.log("render")
+  jumpToOptionPage = () => {
+    if (this.checkIfFieldsNotNull() === false)
+      alert("please fill all fields. User:" + this.state.userId);
+    else if (this.state.basicInfo.availableTimeFrom >= this.state.basicInfo.availableTimeTo)
+      alert(
+        "availableTimeFrom should be smaller than availableTimeTo!"
+      );
+    else
+      this.props.history.push({
+        pathname: "/optionsPage",
+        query: {
+          socketpush: this.state.socketpush,
+          userId: this.state.userId,
+          pollingId: this.state.pollingId,
+          basicInfo: this.state.basicInfo,
+          options: this.state.options
+        }
+      });
+  }
 
-    var pollingId = this.state.pollingId;
+  jumpToMapPage = () => {
+    this.props.history.push({
+      pathname: "/mapPage",
+      query: {
+        socketpush: this.state.socketpush,
+        userId: this.state.userId,
+        pollingId: this.state.pollingId,
+        basicInfo: this.state.basicInfo,
+        options: this.state.options,
+        previousPath: this.props.location.pathname
+      }
+    });
+  }
+
+  render() {
     var basicInfo = this.state.basicInfo;
-    var options = this.state.options;
+
     return (
       <div style={{ position: "relative" }}>
-        <Scrollbars autoHide style={{ height: "499px" }}>
+        <Scrollbars autoHide style={{ height: "89vh" }}>
           <div className="element">
             <div>{this.renderLabel("Subject")}</div>
             {this.renderTextInput(
@@ -252,19 +283,7 @@ class BasicInfoPage extends React.Component {
                   position: "absolute",
                   right: "14px"
                 }}
-                onClick={() => {
-                  this.props.history.push({
-                    pathname: "/mapPage",
-                    query: {
-                      socketpush: this.state.socketpush,
-                      userId: this.state.userId,
-                      pollingId: pollingId,
-                      basicInfo: basicInfo,
-                      options: options,
-                      previousPath: this.props.location.pathname
-                    }
-                  });
-                }}
+                onClick={this.jumpToMapPage}
               >
                 <img
                   src={map_button}
@@ -274,9 +293,9 @@ class BasicInfoPage extends React.Component {
               </button>
             </div>
           </div>
-          <div class="element" style={{ position: "relative" }}>
+          <div class="toggle" >
             {this.renderPlainText("Show Current Result")}
-            <div style={{ position:"absolute", left: "85vw", top: "2vh" }}>
+            <div style={{ position: "absolute", right: "14px" }}>
               {this.renderSwitch(0)}
             </div>
 
@@ -285,42 +304,23 @@ class BasicInfoPage extends React.Component {
             </UnmountClosed>
           </div>
         </Scrollbars>
-        <div className="bottom"></div>
+        <div className="bottom">
         <button
           style={{
             outline: "none",
-            position: "absolute",
             padding: "0px",
-            left: "8px",
-            bottom: "5px",
-            border: "none"
+            border: "none",
+            width: "97%",
+            height: "90%"
           }}
-          onClick={() => {
-            if (this.checkIfFieldsNotNull() === false)
-              alert("please fill all fields. User:" + this.state.userId);
-            else if (basicInfo.availableTimeFrom >= basicInfo.availableTimeTo)
-              alert(
-                "availableTimeFrom should be smaller than availableTimeTo!"
-              );
-            else
-              this.props.history.push({
-                pathname: "/optionsPage",
-                query: {
-                  socketpush: this.state.socketpush,
-                  userId: this.state.userId,
-                  pollingId: pollingId,
-                  basicInfo: basicInfo,
-                  options: options
-                }
-              });
-          }}
+          onClick={this.jumpToOptionPage}
         >
           <img
             src={continue_button}
             alt="continue"
-            style={{ width: "359px", height: "50px" }}
+            style={{ width: "100%", height: "100%" }}
           />
-        </button>
+        </button></div>
       </div>
     );
   }

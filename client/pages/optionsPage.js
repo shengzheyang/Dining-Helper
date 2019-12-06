@@ -57,8 +57,8 @@ class OptionsPage extends React.Component {
   }
 
   optionsPageClick = () => {
-    const baseURL = "http://localhost:5000"; // local
-    // const baseURL = "https://dining-helper.herokuapp.com"; // heroku
+    // const baseURL = "http://localhost:5000"; // local
+    const baseURL = "https://dining-helper.herokuapp.com"; // heroku
 
     if (this.state.pollingId) {
       // get data from DB & compare data from DB and data about to submit
@@ -119,7 +119,7 @@ class OptionsPage extends React.Component {
     var options = this.state.options;
     return (
       <div style={{ position: "relative" }}>
-        <Scrollbars autoHide style={{ height: "499px" }}>
+        <Scrollbars autoHide style={{ height: "89vh" }}>
           <div class="element">
             <div class="label">{this.renderLabel("Subject")}</div>
             {this.renderPlainText(basicInfo.subject)}
@@ -140,17 +140,16 @@ class OptionsPage extends React.Component {
             onClick={this.optionsPageClick}
             style={{
               outline: "none",
-              position: "absolute",
               padding: "0px",
-              left: "8px",
-              bottom: "5px",
-              border: "none"
+              border: "none",
+              width: "97%",
+              height: "90%"
             }}
           >
             <img
               src={submit_button}
-              alt="continue"
-              style={{ width: "359px", height: "50px" }}
+              alt="submit"
+              style={{ width: "100%", height: "100%" }}
             />
           </button>
         </div>

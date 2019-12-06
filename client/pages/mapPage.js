@@ -214,11 +214,11 @@ class MapPage extends React.Component {
           <Autocomplete
             style={{
               position: "absolute",
-              width: "100%",
-              height: "33px",
-              width: "301px",
-              top: "60px",
-              left: "37px",
+              // width: "100%",
+              height: "6vh",
+              width: "80vw",
+              top: "11vh",
+              left: "10vw",
               border: "0px"
             }}
             onPlaceSelected={this.onAutoCompleteSelected}
@@ -240,7 +240,7 @@ class MapPage extends React.Component {
           mapElement={<div style={{ height: `100%` }} />}
         />
 
-        <div className="bottom" style={{ position: "absolute", top: "559px" }}>
+        <div className="bottom" style={{ position: "absolute", top: "89vh" }}>
           <button
             onClick={() => {
               var content = "";
@@ -254,17 +254,16 @@ class MapPage extends React.Component {
             }}
             style={{
               outline: "none",
-              position: "absolute",
               padding: "0px",
-              left: "8px",
-              bottom: "5px",
-              border: "none"
+              border: "none",
+              width: "97%",
+              height: "90%"
             }}
           >
             <img
               src={continue_button}
               alt="continue"
-              style={{ width: "359px", height: "50px" }}
+              style={{ width: "100%", height: "100%" }}
             />
           </button>
         </div>

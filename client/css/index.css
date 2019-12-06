@@ -21,10 +21,8 @@ body {
 }
 
 .plaintext {
-  /* height: 46px;
-  width: 375px; */
+  height: 46px;
   width: 100vw;
-  height: 8vh;
   background-color: #ffffff;
   padding-top: 0px;
   padding-bottom: 0px;
@@ -40,10 +38,8 @@ body {
 }
 
 .inputbox {
-  /* height: 46px;
-  width: 375px; */
+  height: 46px;
   width: 100vw;
-  height: 8vh;
   background-color: #fff;
   padding-top: 0px;
   padding-bottom: 0px;
@@ -63,11 +59,15 @@ body {
   margin-top: 25px;
 }
 
+.toggle {
+  margin-top: 25px;
+  display: flex;
+  align-items: center;
+}
+
 .option {
-  /* width: 375px;
-  height: 46px; */
+  height: 46px;
   width: 100vw;
-  height: 8vh;
   padding-left: 14px;
   position: relative;
   background: #FFFFFF;
@@ -80,23 +80,22 @@ body {
 }
 
 .bottom {
-  /* width: 375px;
-  height: 60px; */
+  height: 60px;
   width: 100vw;
-  height: 11vh;
   background: #FFFFFF;
   border-left: 0px;
   border-right: 0px;
   border-top: 0.5px solid;
   border-bottom: 0.5px solid;
   border-color: #d8d8d8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .result {
-  /* width: 375px;
-  height: auto; */
   width: 100vw;
-  height: 8vh;
+  height: 46px;
   background: #FFFFFF;
   padding-left: 14px;
   border-bottom: 0.5px solid;
@@ -106,10 +105,8 @@ body {
 a {
   background-color: #FFFFFF;
   display:block;
-  /* width: 375px;
-  height: 46px; */
+  height: 46px;
   width: 100vw;
-  height: 8vh;
   padding-top: 0px;
   padding-bottom: 0px;
   border-left: 0px;
@@ -123,10 +120,8 @@ a {
 }
 
 .name {
-  /* height: 46px;
-  width: 375px; */
+  height: 46px;
   width: 100vw;
-  height: 8vh;
   background-color: #fff;
   padding-top: 0px;
   padding-bottom: 0px;
