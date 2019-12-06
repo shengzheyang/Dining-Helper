@@ -1,6 +1,9 @@
 @import url("https://cdnjs.cloudflare.com/ajax/libs/react-datepicker/2.8.0/react-datepicker.css");
 
 .react-datepicker__input-container input {
+   -webkit-appearance: none;
+   -moz-appearance: none;
+   appearance: none;
    height: 46px;
    width: 100vw;
    border-left: 0px;
