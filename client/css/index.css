@@ -53,6 +53,7 @@ body {
   font: 15px "Century Gothic", Futura, sans-serif;
   display: flex;
   align-items: center;
+  border-style: none none none none;
 }
 
 .element {
