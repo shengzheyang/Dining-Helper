@@ -38,6 +38,9 @@ body {
 }
 
 .inputbox {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
   height: 46px;
   width: 100vw;
   background-color: #fff;
@@ -53,7 +56,8 @@ body {
   font: 15px "Century Gothic", Futura, sans-serif;
   display: flex;
   align-items: center;
-  box-shadow: none !important;
+  
+  /* box-shadow: none !important; */
   /* border-style: none none none none; */
 }
 

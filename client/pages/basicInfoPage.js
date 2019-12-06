@@ -303,7 +303,7 @@ class BasicInfoPage extends React.Component {
             {this.renderResult()}
           </UnmountClosed>
         </Scrollbars>
-        
+
         <div className="bottom">
         <button
           style={{

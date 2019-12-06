@@ -215,7 +215,7 @@ class MapPage extends React.Component {
             style={{
               position: "absolute",
               // width: "100%",
-              height: "6vh",
+              height: "40px",
               width: "80vw",
               top: "11vh",
               left: "10vw",
