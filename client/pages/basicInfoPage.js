@@ -121,9 +121,8 @@ class BasicInfoPage extends React.Component {
             options: res.data.options
           }, () => {
             if(this.state.basicInfo.pollingEndTime < Date.now()) {
-              if (window.confirm("This polling has ended.")) {
-                this.jumpToResultPage();
-              }
+              alert("This polling has ended.")
+              this.jumpToResultPage();
             }
           }); 
 
