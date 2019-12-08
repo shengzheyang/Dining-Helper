@@ -21,8 +21,8 @@ class MapPage extends React.Component {
     var query = this.props.location.query;
     this.state = {
       // keep record of the restaurant info
-      address: "Irvine, CA 92697, USA",
-      name: "University of California Irvine",
+      address: "311 W Peltason Dr, Irvine, CA 92697, USA",
+      name: "UC Irvine Student Center",
       // center of the map
       // the original latlng is just a random value
       mapPosition: {
