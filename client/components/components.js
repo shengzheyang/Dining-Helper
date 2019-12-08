@@ -201,9 +201,7 @@ class Option extends React.Component {
             }
           }}
         />
-        <a>
-          <font color="0084ff">{this.state.content}</font>
-        </a>
+        <font className="link">{this.state.content}</font>
         {this.state.isCreator ? (
           <button
             style={{

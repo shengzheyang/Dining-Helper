@@ -22,6 +22,7 @@ class App extends React.Component {
 				<Route path="/mapPage" component={MapPage} 
 					render={(props) => <MapPage {...props} />} />
 				<Route path="/basicInfoPage/:pollingId?"  render={(props) => <BasicInfoPage {...props} userId={this.state.userId} />} />
+				<Route path="/finalResultPage" component={finalResultPage} />
 			</div>
     	</Router>
     );

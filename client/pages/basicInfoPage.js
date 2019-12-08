@@ -48,7 +48,7 @@ class BasicInfoPage extends React.Component {
             filteredAvailableTimeTo: -1
           }
         },
-        socketpush: query.socketpush
+        socketpush: query.socketpush,
       };
     } else {
       if (params.pollingId) {
@@ -76,7 +76,7 @@ class BasicInfoPage extends React.Component {
               filteredAvailableTimeTo: -1
             }
           },
-          socketpush: this.props.socketpush
+          socketpush: this.props.socketpush,
         };
       } else {
         this.state = {
@@ -101,7 +101,7 @@ class BasicInfoPage extends React.Component {
               filteredAvailableTimeTo: -1
             }
           },
-          socketpush: this.props.socketpush
+          socketpush: this.props.socketpush,
         };
       }
     }
@@ -115,12 +115,18 @@ class BasicInfoPage extends React.Component {
       };
       // axios.post('http://localhost:5000/getPollingById', param)
       axios.post("https://dining-helper.herokuapp.com/getPollingById", param)
-        .then(res => {
+        .then(res =>  {
           this.setState({
             basicInfo: res.data.basicInfo,
             options: res.data.options
-          });
-        });
+          }, () => {
+            if(this.state.basicInfo.pollingEndTime < Date.now()) {
+              alert("This polling has ended");
+              this.jumpToResultPage();
+            }
+          }); 
+
+        })
     }
   }
 
@@ -133,8 +139,8 @@ class BasicInfoPage extends React.Component {
   changeResultOpen(newValue) {
     this.setState({ resultOpen: newValue });
     const param = { pollingId: this.state.pollingId };
-    // axios.post("http://localhost:5000/getAnalysedResult", param)
-    axios.post("https://dining-helper.herokuapp.com/getAnalysedResult", param)
+    axios.post("http://localhost:5000/getAnalysedResult", param)
+    // axios.post("https://dining-helper.herokuapp.com/getAnalysedResult", param)
       .then(res => {
         console.log("getAnalysedResult:", res);
         this.setState({
@@ -222,7 +228,21 @@ class BasicInfoPage extends React.Component {
         pollingId: this.state.pollingId,
         basicInfo: this.state.basicInfo,
         options: this.state.options,
-        previousPath: this.props.location.pathname
+        previousPath: this.props.location.pathname,
+        address: this.state.address
+      }
+    });
+  }
+
+  jumpToResultPage = () => {
+    console.log("jumpToResultPage", this.state.pollingId)
+    this.props.history.push({
+      pathname: "/finalResultPage",
+      query: {
+        pollingId: this.state.pollingId,
+        subject: this.state.basicInfo.subject,
+        pollingEndTime: this.state.basicInfo.pollingEndTime,
+        result: this.state.result
       }
     });
   }
@@ -271,10 +291,10 @@ class BasicInfoPage extends React.Component {
           </div>
           <div className="element">
             <div>{this.renderLabel("Start Point")}</div>
-            <div className="option">
-              <a>
-                <font color="0084ff">{basicInfo.startPoint}</font>
-              </a>
+            <div className="option" onClick={this.jumpToMapPage}>
+              
+              <font className="link">{basicInfo.startPoint}</font>
+              
               <button
                 style={{
                   outline: "none",

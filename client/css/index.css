@@ -24,10 +24,10 @@ body {
   height: 46px;
   width: 100vw;
   background-color: #ffffff;
-  padding-top: 0px;
+  /* padding-top: 0px;
   padding-bottom: 0px;
   border-left: 0px;
-  border-right: 0px;
+  border-right: 0px; */
   border-top: 0.5px solid;
   border-bottom: 0.5px solid;
   padding-left: 14px;
@@ -86,6 +86,15 @@ body {
   align-items: center;
 }
 
+.link {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 75vw;
+  color: #0084ff;
+  padding-left: 14px;
+}
+
 .bottom {
   height: 60px;
   width: 100vw;
@@ -108,7 +117,7 @@ body {
   border-bottom: 0.5px solid;
   border-color: #d8d8d8;
 }
-
+/* 
 a {
   background-color: #FFFFFF;
   display:block;
@@ -124,7 +133,7 @@ a {
   padding-top: 10px;
   border-color: #d8d8d8;
   font: 15px "Century Gothic", Futura, sans-serif;
-}
+} */
 
 .name {
   height: 46px;

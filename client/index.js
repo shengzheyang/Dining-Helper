@@ -3,6 +3,7 @@ import ReactDOM from "react-dom";
 import BasicInfoPage from "./pages/basicInfoPage";
 import OptionsPage from "./pages/optionsPage";
 import MapPage from "./pages/mapPage";
+import finalResultPage from "./pages/finalResultPage";
 
 import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
 import { func } from "prop-types";
@@ -18,10 +19,11 @@ window.attachApp = (viewerId, threadType) => {
 
 class App extends React.Component {
   socketpush = param => {
-    // axios.post('http://localhost:5000/sendMessageToUser', param)
+    
     if (param.isOwner === true) {
-      axios
+      // axios
         .post("https://dining-helper.herokuapp.com/sendMessageToUser", param)
+        // axios.post('http://localhost:5000/sendMessageToUser', param)
         .then(res => {
           window.MessengerExtensions.requestCloseBrowser(null, null);
         })
@@ -66,6 +68,7 @@ class App extends React.Component {
               />
             )}
           />
+          <Route path="/finalResultPage" component={finalResultPage} />
         </div>
       </Router>
     );
