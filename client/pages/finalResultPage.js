@@ -38,7 +38,7 @@ class finalResultPage extends React.Component {
           this.setState({
             load: true,
             result: res.data
-          }, () => alert("This polling has ended."));
+          });
         });
       return (<div></div>);
     } else {
