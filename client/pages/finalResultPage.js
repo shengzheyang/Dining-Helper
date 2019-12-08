@@ -31,7 +31,6 @@ class finalResultPage extends React.Component {
 
   render() {
     if(this.state.load === false){
-      alert("This polling has ended.")
       const param = { pollingId: this.state.pollingId };
       axios.post("https://dining-helper.herokuapp.com/getAnalysedResult", param)
       // axios.post("http://localhost:5000/getAnalysedResult", param)
@@ -39,7 +38,7 @@ class finalResultPage extends React.Component {
           this.setState({
             load: true,
             result: res.data
-          });
+          }, () => alert("This polling has ended."));
         });
       return (<div></div>);
     } else {

@@ -332,7 +332,7 @@ function Result(props) {
   return (
   <div className="result">
     <br/>
-    <p>On-time rank with respect to voting:</p >
+    <p>Real-time ranking based on votes:</p >
     {
       (props.result.voteRank.length === 0) ? <p>&nbsp; &nbsp; No result</p > :
         props.result.voteRank.map((val, index) => {
@@ -341,7 +341,7 @@ function Result(props) {
           );
          })
     }
-    <p>On-time rank with respect to total distance:</p >
+    <p>Real-time ranking based on the total distance:</p >
     {
       (props.result.distanceRank.length === 0) ? <p>&nbsp; &nbsp; No result</p > :
         props.result.distanceRank.map((val, index) => {
