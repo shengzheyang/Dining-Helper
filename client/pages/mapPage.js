@@ -26,13 +26,13 @@ class MapPage extends React.Component {
       // center of the map
       // the original latlng is just a random value
       mapPosition: {
-        lat: 33.640495,
-        lng: -117.844296
+        lat: 33.6459544,
+        lng: -117.8429335
       },
       // where to place the marker
       markerPosition: {
-        lat: 33.640495,
-        lng: -117.844296
+        lat: 33.6459544,
+        lng: -117.8429335
       },
       userId: query.userId,
       pollingId: query.pollingId,
