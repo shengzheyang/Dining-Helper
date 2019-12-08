@@ -4,10 +4,11 @@ const axios = require('axios');
 
 const getTotalDistance = async (usersStartPoints, endPoint) => {
   var totalDis = 0, maxTime = 0;
-  var queryString = 'https://maps.googleapis.com/maps/api/distancematrix/json?origins='
-  + usersStartPoints.map(startPoint => startPoint).join('|') + '&destinations=' + endPoint
-  + '&key=AIzaSyBTBQq3meN2QqOruFQ--ueYgHgoIWxZqbY'
-  queryString = queryString.replace(/\s/g, '%20')
+  var queryString = "https://maps.googleapis.com/maps/api/distancematrix/json?origins="
+  + usersStartPoints.map(startPoint => startPoint).join("|") + "&destinations=" + endPoint
+  + "&key=AIzaSyBTBQq3meN2QqOruFQ--ueYgHgoIWxZqbY"
+  queryString = queryString.replace(/\s/g, "%20").replace(/#/g, "%23")
+  // console.log(queryString)
 
   var res = await axios.get(queryString);
   res.data.rows.map(row => {

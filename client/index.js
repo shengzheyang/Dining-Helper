@@ -21,8 +21,7 @@ class App extends React.Component {
   socketpush = param => {
     
     if (param.isOwner === true) {
-      // axios
-        .post("https://dining-helper.herokuapp.com/sendMessageToUser", param)
+      axios.post("https://dining-helper.herokuapp.com/sendMessageToUser", param)
         // axios.post('http://localhost:5000/sendMessageToUser', param)
         .then(res => {
           window.MessengerExtensions.requestCloseBrowser(null, null);

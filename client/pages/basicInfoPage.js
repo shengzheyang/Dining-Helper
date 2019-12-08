@@ -139,8 +139,8 @@ class BasicInfoPage extends React.Component {
   changeResultOpen(newValue) {
     this.setState({ resultOpen: newValue });
     const param = { pollingId: this.state.pollingId };
-    axios.post("http://localhost:5000/getAnalysedResult", param)
-    // axios.post("https://dining-helper.herokuapp.com/getAnalysedResult", param)
+    // axios.post("http://localhost:5000/getAnalysedResult", param)
+    axios.post("https://dining-helper.herokuapp.com/getAnalysedResult", param)
       .then(res => {
         console.log("getAnalysedResult:", res);
         this.setState({
