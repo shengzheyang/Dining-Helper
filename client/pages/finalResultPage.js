@@ -38,6 +38,11 @@ class finalResultPage extends React.Component {
           this.setState({
             load: true,
             result: res.data
+          }, () => {
+            if(this.state.basicInfo.pollingEndTime < Date.now()) {
+              alert("This polling has ended");
+              this.jumpToResultPage();
+            }
           });
         });
       return (<div></div>);
