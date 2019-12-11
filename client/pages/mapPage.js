@@ -21,8 +21,8 @@ class MapPage extends React.Component {
     var query = this.props.location.query;
     this.state = {
       // keep record of the restaurant info
-      address: "Irvine, CA 92697, USA",
-      name: "University of California Irvine",
+      address: "311 W Peltason Dr, Irvine, CA 92697",
+      name: "UC Irvine Student Center",
       // center of the map
       // the original latlng is just a random value
       mapPosition: {
@@ -52,7 +52,7 @@ class MapPage extends React.Component {
   }
 
   componentDidMount() {
-    this.geolocate();
+    // this.geolocate();
     this.address2latlng(this.state.address);
     // console.log('page2 pollingId', this.state.pollingId)
   }
@@ -214,11 +214,11 @@ class MapPage extends React.Component {
           <Autocomplete
             style={{
               position: "absolute",
-              width: "100%",
-              height: "33px",
-              width: "301px",
-              top: "60px",
-              left: "37px",
+              // width: "100%",
+              height: "40px",
+              width: "80vw",
+              top: "11vh",
+              left: "10vw",
               border: "0px"
             }}
             onPlaceSelected={this.onAutoCompleteSelected}
@@ -236,11 +236,11 @@ class MapPage extends React.Component {
         <AsyncMap
           googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyBTBQq3meN2QqOruFQ--ueYgHgoIWxZqbY&libraries=places"
           loadingElement={<div style={{ height: `100%` }} />}
-          containerElement={<div style={{ height: "574px", width: "375px" }} />}
+          containerElement={<div style={{ width: "100vw", height: "100vh" }} />}
           mapElement={<div style={{ height: `100%` }} />}
         />
 
-        <div className="bottom" style={{ position: "absolute", top: "559px" }}>
+        <div className="bottom" style={{ position: "absolute", top: "89vh" }}>
           <button
             onClick={() => {
               var content = "";
@@ -254,17 +254,16 @@ class MapPage extends React.Component {
             }}
             style={{
               outline: "none",
-              position: "absolute",
               padding: "0px",
-              left: "8px",
-              bottom: "5px",
-              border: "none"
+              border: "none",
+              width: "97%",
+              height: "90%"
             }}
           >
             <img
               src={continue_button}
               alt="continue"
-              style={{ width: "359px", height: "50px" }}
+              style={{ width: "100%", height: "100%" }}
             />
           </button>
         </div>
