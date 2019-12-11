@@ -26,13 +26,13 @@ class MapPage extends React.Component {
       // center of the map
       // the original latlng is just a random value
       mapPosition: {
-        lat: 33.6459544,
-        lng: -117.8429335
+        lat: 33.640495,
+        lng: -117.844296
       },
       // where to place the marker
       markerPosition: {
-        lat: 33.6459544,
-        lng: -117.8429335
+        lat: 33.640495,
+        lng: -117.844296
       },
       userId: query.userId,
       pollingId: query.pollingId,
@@ -52,7 +52,7 @@ class MapPage extends React.Component {
   }
 
   componentDidMount() {
-    // this.geolocate();
+    this.geolocate();
     this.address2latlng(this.state.address);
     // console.log('page2 pollingId', this.state.pollingId)
   }
@@ -214,11 +214,11 @@ class MapPage extends React.Component {
           <Autocomplete
             style={{
               position: "absolute",
-              // width: "100%",
-              height: "40px",
-              width: "80vw",
-              top: "11vh",
-              left: "10vw",
+              width: "100%",
+              height: "33px",
+              width: "301px",
+              top: "60px",
+              left: "37px",
               border: "0px"
             }}
             onPlaceSelected={this.onAutoCompleteSelected}
@@ -236,11 +236,11 @@ class MapPage extends React.Component {
         <AsyncMap
           googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyBTBQq3meN2QqOruFQ--ueYgHgoIWxZqbY&libraries=places"
           loadingElement={<div style={{ height: `100%` }} />}
-          containerElement={<div style={{ width: "100vw", height: "100vh" }} />}
+          containerElement={<div style={{ height: "574px", width: "375px" }} />}
           mapElement={<div style={{ height: `100%` }} />}
         />
 
-        <div className="bottom" style={{ position: "absolute", top: "89vh" }}>
+        <div className="bottom" style={{ position: "absolute", top: "559px" }}>
           <button
             onClick={() => {
               var content = "";
@@ -254,16 +254,17 @@ class MapPage extends React.Component {
             }}
             style={{
               outline: "none",
+              position: "absolute",
               padding: "0px",
-              border: "none",
-              width: "97%",
-              height: "90%"
+              left: "8px",
+              bottom: "5px",
+              border: "none"
             }}
           >
             <img
               src={continue_button}
               alt="continue"
-              style={{ width: "100%", height: "100%" }}
+              style={{ width: "359px", height: "50px" }}
             />
           </button>
         </div>
