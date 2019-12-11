@@ -19,5 +19,4 @@ It would be much easier for users to decide given these information.
 JavaScript
 
 ## Tools/IDE
-React Node.js MongoDB
-Visual Studio Code
+React    Node.js    MongoDB    Visual Studio Code
