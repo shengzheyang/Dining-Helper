@@ -52,7 +52,7 @@ class MapPage extends React.Component {
   }
 
   componentDidMount() {
-    // this.geolocate();
+    this.geolocate();
     this.address2latlng(this.state.address);
     // console.log('page2 pollingId', this.state.pollingId)
   }
