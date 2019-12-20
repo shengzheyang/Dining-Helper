@@ -12,7 +12,7 @@ import "../css/index.css";
 
 import * as continue_button from "../continue.png";
 
-Geocode.setApiKey("AIzaSyBTBQq3meN2QqOruFQ--ueYgHgoIWxZqbY");
+Geocode.setApiKey("API_KEY");
 Geocode.enableDebug();
 
 class MapPage extends React.Component {
