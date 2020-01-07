@@ -8,9 +8,13 @@ A chat extension for Facebook Messenger to help a group of people decide where t
 <img align="right" src="https://github.com/shengzheyang/Dining-Helper/blob/master/images/wswe2.png" width="534" height="300">
 <div width="100">
 In our daily life, we often come across a trivial but annoying question: What should we eat?<br /><br />
-This is the question we ask almost every time we hang out with our friends. We waste our valuable time arguing over something that rarely fits everyone's tastes. Can we solve this problem in an elegant way with the help of technology?<br /><br /><br /><br /><br /></div>
+This is the question we ask almost every time we hang out with our friends. We waste our valuable time arguing over something that rarely fits everyone's tastes. Can we solve this problem in an elegant way with the help of technology?<br /><br /><br /><br /></div>
 
-## Basic Features
+## About Dining Helper
+
+Dining Helper will help you solve this problem on your fingertips！Embedded in the Facebook Messenger app, it can give suggestions in the group chat right away according to the votes restaurants received and the distances they are from the users.
+
+### Basic Features
 - A front-end polling panel page which visualizes all voting options.
 - Everyone can add new options but can’t edit or delete existing options except for the option’s owner. Multiple choice is enabled. 
 
