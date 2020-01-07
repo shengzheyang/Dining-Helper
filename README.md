@@ -1,8 +1,12 @@
 # Dining-Helper
 
-<img src="https://github.com/shengzheyang/Dining-Helper/blob/master/images/01.png" width="100" height="200"><img src="https://github.com/shengzheyang/Dining-Helper/blob/master/images/02.png" width="100" height="200">
+<img src="https://github.com/shengzheyang/Dining-Helper/blob/master/images/01.png" width="100" height="200">&ensp;&ensp;<img src="https://github.com/shengzheyang/Dining-Helper/blob/master/images/02.png" width="100" height="200">
 
 A chat extension for Facebook Messenger to help a group of people decide where to eat.
+
+## Background
+<img src="https://github.com/shengzheyang/Dining-Helper/blob/master/images/wswe.png" width="372" height="357">
+In our daily life, we often come across a trivial but annoying question: What should we eat? This is the question we ask almost every time we hang out with our friends. Can we solve this problem in an elegant way with the help of technology?
 
 ## Basic Features
 - A front-end polling panel page which visualizes all voting options.
