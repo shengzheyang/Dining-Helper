@@ -1,4 +1,4 @@
-# Dining-Helper
+# Dining-Helper![11](C:\Users\lukey\Desktop\11.png
 A chat extension for Facebook Messenger to help a group of people decide where to eat.
 
 ## Basic Features
