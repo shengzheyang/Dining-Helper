@@ -5,10 +5,9 @@
 A chat extension for Facebook Messenger to help a group of people decide where to eat.
 
 ## Background
-<p align="center">
-<img src="https://github.com/shengzheyang/Dining-Helper/blob/master/images/wswe2.png" height="333">
-</p>
-In our daily life, we often come across a trivial but annoying question: What should we eat? This is the question we ask almost every time we hang out with our friends. Can we solve this problem in an elegant way with the help of technology?
+<img align="right" src="https://github.com/shengzheyang/Dining-Helper/blob/master/images/wswe2.png" height="333">
+<p>
+In our daily life, we often come across a trivial but annoying question: What should we eat? This is the question we ask almost every time we hang out with our friends. Can we solve this problem in an elegant way with the help of technology?</p>
 
 ## Basic Features
 - A front-end polling panel page which visualizes all voting options.
