@@ -1,6 +1,6 @@
-# Dining-Helper! 
+# Dining-Helper
 
-![01](https://github.com/shengzheyang/Dining-Helper/blob/master/images/01.png)
+<img src="https://github.com/shengzheyang/Dining-Helper/blob/master/images/01.png" width="100" height="200"><img src="https://github.com/shengzheyang/Dining-Helper/blob/master/images/02.png" width="100" height="200">
 
 A chat extension for Facebook Messenger to help a group of people decide where to eat.
 
