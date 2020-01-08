@@ -37,7 +37,7 @@ Dining Helper could provide a recommended ranking list at the end of the algorit
 
 ### System Architecture
 
-<img src="https://github.com/shengzheyang/Dining-Helper/blob/master/images/system.jpg">
+<img src="https://github.com/shengzheyang/Dining-Helper/blob/master/images/system.png">
 
 ## Tools Used
 #### ECMAScript 7 (“ES7” / JavaScript)
