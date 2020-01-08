@@ -1,4 +1,4 @@
-# Dining-Helper [![logo](https://github.com/shengzheyang/Dining-Helper/blob/master/images/logo.png)]
+# <img src="https://github.com/shengzheyang/Dining-Helper/blob/master/images/logo.png" width="100" height="100">Dining-Helper
 
 <img src="https://github.com/shengzheyang/Dining-Helper/blob/master/images/01.png" width="100" height="200">&ensp;&ensp;<img src="https://github.com/shengzheyang/Dining-Helper/blob/master/images/02.png" width="100" height="200">
 
