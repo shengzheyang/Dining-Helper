@@ -12,8 +12,6 @@ This is the question we ask almost every time we hang out with our friends. We w
 
 Dining Helper will help you solve this problem on your fingertips！Embedded in the Facebook Messenger app, it can give suggestions in the group chat right away according to the votes restaurants received and the distances they are from the users.
 
-### Overview
-
 <img src="https://github.com/shengzheyang/Dining-Helper/blob/master/images/overview.jpg">
 
 ### Basic Features
