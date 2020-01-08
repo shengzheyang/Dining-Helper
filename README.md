@@ -15,18 +15,21 @@ Dining Helper will help you solve this problem on your fingertips！Embedded in 
 <img src="https://github.com/shengzheyang/Dining-Helper/blob/master/images/overview.jpg">
 
 ### Basic Features
-- A front-end polling panel page which visualizes all voting options.
-- Everyone can add new options but can’t edit or delete existing options except for the option’s owner. Multiple choice is enabled. 
+- One of the users can create a new polling and set the deadline of this polling subject. Then this polling is ready for sharing to a group chat.
+- All of the restaurant options are visible to every user in the polling panel but the options can only be modified by their owners.
+- User can add or delete their desired restaurants as options before the polling end time. Multiple choice is supported.
 
 ### Advanced Features
-- Users can input their own available times for the meal.
-- Users can search restaurants in an integrated map and pick their desired restaurant on the dropdown menu.
+- Users can select their own available times for the meal.
+- When adding an option, users can search restaurants in an integrated map and pick the restaurant on the dropdown menu.
+- Even before the pollind end time, users can view the real-time voting result at any time.
 
 ### Recommendation Algorithm
 - Rank all mentioned restaurants according to the votes collected so far.
 - Rank these restaurants given their distances to the users. (The closer the distance, the higher its rank)
 - Give out the mutual available time of all users in the group.
-It would be much easier for users to decide given these information. 
+
+Dining Helper could provide a recommended ranking list at the end of the algorithm. However, we think this would be presumptuous to combine the vote rank and distance rank in our own way. Hence, we can also simply give out the information and let the users make the final decision with these useful information.
 
 ## Programming Language
 JavaScript
