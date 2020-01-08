@@ -39,6 +39,10 @@ Dining Helper could provide a recommended ranking list at the end of the algorit
 
 <img src="https://github.com/shengzheyang/Dining-Helper/blob/master/images/system.png">
 
+## Design Roadmap
+
+<img src="https://github.com/shengzheyang/Dining-Helper/blob/master/images/roadmap.png">
+
 ## Tools Used
 #### ECMAScript 7 (“ES7” / JavaScript)
 ECMAScript is the standard behind JavaScript. It has had a number of very useful additions over the past several years, modernizing the syntax and providing new capabilities.
