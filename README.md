@@ -14,7 +14,7 @@ Dining Helper will help you solve this problem on your fingertips！Embedded in 
 
 ### Overview
 
-<img src="https://github.com/shengzheyang/Dining-Helper/blob/master/images/overview.png">
+<img src="https://github.com/shengzheyang/Dining-Helper/blob/master/images/overview.jpg">
 
 ### Basic Features
 - A front-end polling panel page which visualizes all voting options.
