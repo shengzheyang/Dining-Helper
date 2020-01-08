@@ -25,7 +25,7 @@ Dining Helper will help you solve this problem on your fingertips！Embedded in 
 
 - Users can select their own available times for the meal.
 - When adding an option, users can search restaurants in an integrated map and pick the restaurant on the dropdown menu.
-- Even before the pollind end time, users can view the real-time voting result at any time.
+- Even before the polling end time, users can view the real-time voting result at any time.
 
 ### Recommendation Algorithm
 
@@ -75,7 +75,7 @@ EJS is a very simple templating language. This helps us create HTML for the page
 *[Learn More](http://ejs.co/)*
 
 #### React.js
-React is a JavaScript library for building user interfaces. It allows us to create highly interactive and reusable user interfaces. Used heavily in this project to create webviews.
+React is a JavaScript library for building user interfaces. It allows us to create highly interactive and reusable user interfaces. Used heavily in this project to create WebViews.
 
 *[Learn More](https://facebook.github.io/react/)*
 
